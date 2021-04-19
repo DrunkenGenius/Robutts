@@ -73,9 +73,9 @@ bool control::initialized() const
   return (_motor_left.connected() &&
           _motor_right.connected() &&
       //Color sensor
-      _sensor_col_color.connected()) &&
+      _sensor_col_color.connected() &&
       //Ultralydssensor
-      _sensor_us_dist_cm.connected()) &&
+      _sensor_us_dist_cm.connected() &&
           _sensor_touch.connected());
 }
 
