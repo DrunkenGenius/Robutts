@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+..//ev3dev.h
+map
+-
+set
+-
+string
+-
+tuple
+-
+vector
+-
+algorithm
+-
+functional
+-
+memory
+-
+
+/src/demos/remote_control-test.cpp
+ev3dev.h
+/src/demos/ev3dev.h
+iostream
+-
+

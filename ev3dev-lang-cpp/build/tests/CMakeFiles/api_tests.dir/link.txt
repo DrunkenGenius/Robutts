@@ -1,0 +1,1 @@
+/usr/bin/arm-linux-gnueabi-g++   -O2 -g -DNDEBUG   CMakeFiles/api_tests.dir/api_tests.cpp.o CMakeFiles/api_tests.dir/__/ev3dev.cpp.o  -o api_tests -rdynamic 

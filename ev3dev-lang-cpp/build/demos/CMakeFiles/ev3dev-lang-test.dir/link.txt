@@ -1,0 +1,1 @@
+/usr/bin/arm-linux-gnueabi-g++   -O2 -g -DNDEBUG   CMakeFiles/ev3dev-lang-test.dir/ev3dev-lang-test.cpp.o  -o ev3dev-lang-test -rdynamic ../libev3dev.a -lpthread 

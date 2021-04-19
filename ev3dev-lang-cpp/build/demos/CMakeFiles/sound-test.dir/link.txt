@@ -1,0 +1,1 @@
+/usr/bin/arm-linux-gnueabi-g++   -O2 -g -DNDEBUG   CMakeFiles/sound-test.dir/sound-test.cpp.o  -o sound-test -rdynamic ../libev3dev.a -lpthread 

@@ -1,0 +1,1 @@
+/usr/bin/arm-linux-gnueabi-g++   -O2 -g -DNDEBUG   CMakeFiles/remote-control.dir/remote-control.cpp.o  -o remote-control -rdynamic ../libev3dev.a -lpthread 

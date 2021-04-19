@@ -1,0 +1,1 @@
+/usr/bin/arm-linux-gnueabi-g++   -O2 -g -DNDEBUG   CMakeFiles/button-test.dir/button-test.cpp.o  -o button-test -rdynamic ../libev3dev.a -lpthread 
