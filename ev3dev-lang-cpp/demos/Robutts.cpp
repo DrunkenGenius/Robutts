@@ -235,7 +235,6 @@ int main()
 	}
 
     /*
-    bool enemyColorDetected = false;
     sweepArea()
     {
     if (enemyColorDetected == false && ultrasoundValue <= 50.0f)
