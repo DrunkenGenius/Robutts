@@ -50,6 +50,9 @@ public:
   bool obstacleDetected = false;
 
   int hpCounter = 3;
+  int redColor = 5;
+  int greenColor = 3;
+
 
 protected:
   large_motor _motor_left;
@@ -171,39 +174,24 @@ void control::avoidObstacle()
     //If statement that takes value from distance sensor and does something with the value
     if (ultrasoundValue <= 50.0f) {
         //I stedet for dette forneden, kunne vi køre en anden funktion, eks. 'driveForward();'
-        _motor_left.set_speed_sp(-speed);
-    }
-    else if (ultrasoundValue >= 500.0f) {
-        _motor_left.set_speed_sp(-speed);
-
-        _motor_right.set_speed_sp(-speed);
+        driveBackwards();
+        turnLeft();
     }
 }
 
 
 void control::attackMode()
 {
-    /*
-Color detected by the sensor, categorized by overall value.
-0: No color
-1: Black
-2: Blue
-3: Green
-4: Yellow
-5: Red
-6: White
-7: Brown
-*/
     //Set value for sensor
     int colorValue = _sensor_col_color.value();
     //If statement that takes value from color-sensor and does something with the value
-    if (colorValue == 3) {
+    if (colorValue == redColor) {
         //I stedet for dette forneden, kunne vi køre en anden funktion, eks. 'driveForward();'
         _motor_left.set_speed_sp(-speed);
 
         _motor_right.set_speed_sp(-speed);
     }
-    else if (colorValue == 5) {
+    else if (colorValue == greenColor) {
         _motor_left.set_speed_sp(-speed);
     }
 }
@@ -246,6 +234,24 @@ int main()
 		case = 4;
 	}
 
+    /*
+    bool enemyColorDetected = false;
+    sweepArea()
+    {
+    if (enemyColorDetected == false && ultrasoundValue <= 50.0f)
+    {
+    AvoidObstacles();
+    }
+    else if(enemyColorDetected == true && colorValue == 3)
+    {
+    attackMode();
+    }
+    else if (bumper sensor == true)
+    {
+    dead();
+    }
+    */
+ 
 
 	
 
