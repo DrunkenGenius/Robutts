@@ -173,7 +173,6 @@ void control::avoidObstacle()
     float ultrasoundValue = _sensor_us_dist_cm.value();		//x value er i mm ikke cm 
     //If statement that takes value from distance sensor and does something with the value
     if (ultrasoundValue <= 50.0f) {
-        //I stedet for dette forneden, kunne vi køre en anden funktion, eks. 'driveForward();'
         driveBackwards();
         turnLeft();
     }
