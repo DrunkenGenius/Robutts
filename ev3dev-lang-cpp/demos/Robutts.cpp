@@ -183,6 +183,17 @@ void control::avoidObstacle()
 
 void control::attackMode()
 {
+    /*
+Color detected by the sensor, categorized by overall value.
+0: No color
+1: Black
+2: Blue
+3: Green
+4: Yellow
+5: Red
+6: White
+7: Brown
+*/
     //Set value for sensor
     int colorValue = _sensor_col_color.value();
     //If statement that takes value from color-sensor and does something with the value
