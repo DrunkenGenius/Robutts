@@ -69,7 +69,9 @@ bool control::initialized() const
 {
   return (_motor_left.connected() &&
           _motor_right.connected() &&
+      //Color sensor
       _sensor_col_color.connected()) &&
+      //Ultralydssensor
       _sensor_us_dist_cm.connected()) &&
           _sensor_touch.connected());
 }
@@ -162,9 +164,13 @@ void control::sweepArea()
 
 void control::avoidObstacle()
 {
+    //Set mode
     _sensor_us_dist_cm.set_mode(ultrasonic_sensor::mode_us_dist_cm);
+    //Set value for sensor
     float ultrasoundValue = _sensor_us_dist_cm.value();		//x value er i mm ikke cm 
+    //If statement that takes value from distance sensor and does something with the value
     if (ultrasoundValue <= 50.0f) {
+        //I stedet for dette forneden, kunne vi køre en anden funktion, eks. 'driveForward();'
         _motor_left.set_speed_sp(-speed);
     }
     else if (ultrasoundValue >= 500.0f) {
@@ -177,8 +183,11 @@ void control::avoidObstacle()
 
 void control::attackMode()
 {
+    //Set value for sensor
     int colorValue = _sensor_col_color.value();
+    //If statement that takes value from color-sensor and does something with the value
     if (colorValue == 3) {
+        //I stedet for dette forneden, kunne vi køre en anden funktion, eks. 'driveForward();'
         _motor_left.set_speed_sp(-speed);
 
         _motor_right.set_speed_sp(-speed);
