@@ -32,6 +32,7 @@ public:
   void avoidObstacle();
   void attackMode();
   void dead();
+  void updateSensorInput();
 
   void stop();
   void reset();
@@ -52,6 +53,8 @@ public:
   int hpCounter = 3;
   int redColor = 5;
   int greenColor = 3;
+  int case = 1;
+  float ultraSoundValue;
 
 
 protected:
@@ -157,25 +160,36 @@ void control::turnLeft(int speed, int time)
 
 void control::sweepArea()
 {
-  while (enemyColorDetected == false)
-  {
     c.driveForward(1000, 200);
     c.turnRight(500, 200);
     c.turnLeft(500, 200);
+  while (enemyColorDetected == false)
+  {
+    updateSensorInput();
+    if (ultraSoundSensor < threshold){
+      case = 2;
+      break;
+    }
+    else if (enemyColorDetected == true){ // true skal være en color red eller green
+      case = 3;
+      break;
+    }
+    else if (hp <= 0){
+      case = null;
+      break;
+    }
   }
 }
 
 void control::avoidObstacle()
 {
-    //Set mode
-    _sensor_us_dist_cm.set_mode(ultrasonic_sensor::mode_us_dist_cm);
-    //Set value for sensor
-    float ultrasoundValue = _sensor_us_dist_cm.value();		//x value er i mm ikke cm 
-    //If statement that takes value from distance sensor and does something with the value
-    if (ultrasoundValue <= 50.0f) {
+  while  (ultraSoundValue < backOffthresHold)
+  { //vi bakker indtil at vi er en bestemt længde væk fra væggen
         driveBackwards();
-        turnLeft();
-    }
+  }
+        turnLeft(500,200);
+        case = 1;
+    
 }
 
 
@@ -185,7 +199,7 @@ void control::attackMode()
     int colorValue = _sensor_col_color.value();
     //If statement that takes value from color-sensor and does something with the value
     if (colorValue == redColor) {
-        //I stedet for dette forneden, kunne vi k�re en anden funktion, eks. 'driveForward();'
+        //I stedet for dette forneden, kunne vi k�re en anden funktion, eks. 'driveForward();'
         _motor_left.set_speed_sp(-speed);
 
         _motor_right.set_speed_sp(-speed);
@@ -195,6 +209,10 @@ void control::attackMode()
     }
 }
 
+void control::updateSensorInput(){
+  //Set value for sensor
+     ultrasoundValue = _sensor_us_dist_cm.value();		//x value er i mm ikke cm 
+}
 
 void control::dead()
 { //robot dies and spins around like a dead fly.
@@ -219,6 +237,9 @@ int main()
 {
   control c;
   c.initialized();
+  //Set mode
+    _sensor_us_dist_cm.set_mode(ultrasonic_sensor::mode_us_dist_cm);
+
 
   if (enemyColorDetected == true)
   {           //checking for enemy color
@@ -253,7 +274,11 @@ int main()
 
 	
 
-  switch (case) {
+ 
+
+  while (1)
+      {
+         switch (case) {
 	  case 1:
       sweepArea(); //explores the area for enemies then goes to either avoidObstacle or attackMode
       break;
@@ -274,13 +299,6 @@ int main()
     
     default: dead();
   }
-
-  while (1)
-      {
-        c.driveForward(500, 200);
-        c.driveBackwards(500, 200);
-        c.turnRight(500, 200);
-        c.turnLeft(500, 200);
       }
       
 }
