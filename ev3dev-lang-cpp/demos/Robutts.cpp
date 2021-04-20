@@ -55,8 +55,8 @@ public:
   int greenColor = 3;
   int case = 1;
   float ultraSoundValue;
-
-
+//--------------------------------------------------VARIABLES AND VOIDS  END ---------------------------------------//
+//--------------------------------------------------SENSOR INSTANTIATION START ---------------------------------------//
 protected:
   large_motor _motor_left;
   large_motor _motor_right;
@@ -81,6 +81,9 @@ bool control::initialized() const
       _sensor_us_dist_cm.connected() &&
           _sensor_touch.connected());
 }
+//--------------------------------------------------SENSOR INSTANTIATION END ---------------------------------------//
+//---------------------------------------------------BASIC MOVEMENT START--------------------------------------------//
+
 
 void control::driveForward(int speed, int time)
 {
@@ -157,6 +160,10 @@ void control::turnLeft(int speed, int time)
     _motor_right.run_forever();
   }
 }
+//---------------------------------------------------BASIC MOVEMENT END--------------------------------------------//
+
+//--------------------------------------------------BEHAVIOUR START------- ---------------------------------------//
+
 
 void control::sweepArea()
 {
@@ -180,6 +187,29 @@ void control::sweepArea()
     }
   }
 }
+
+ updateSensorInput();
+//if (ultrs == false && color == false = hp false)
+{
+    c.driveForward(1000, 200);
+    updateSensorInput();
+    c.turnRight(500, 200);
+    updateSensorInput();
+    c.turnLeft(500, 200);
+}
+else if 
+ if (ultraSoundSensor < threshold){
+      case = 2;
+      break;
+    }
+    else if (enemyColorDetected == true){ // true skal være en color red eller green
+      case = 3;
+      break;
+    }
+    else if (hp <= 0){
+      case = null;
+      break;
+    }
 
 void control::avoidObstacle()
 {
@@ -232,6 +262,10 @@ void control::dead()
     _motor_right.run_forever();
   }
 }
+
+//--------------------------------------------------BEHAVIOUR END---------------------------------------//
+//--------------------------------------------------MAIN START ---------------------------------------//
+
 
 int main()
 {
