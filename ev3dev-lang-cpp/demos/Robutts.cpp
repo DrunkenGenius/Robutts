@@ -47,14 +47,7 @@ public:
 
   unsigned int microsecond = 1000000;
 
-  bool enemyColorDetected = false;
-  bool obstacleDetected = false;
-
-  int hpCounter = 3;
-  int redColor = 5;
-  int greenColor = 3;
-  int case = 1;
-  float ultraSoundValue;
+  
 //--------------------------------------------------VARIABLES AND VOIDS  END ---------------------------------------//
 //--------------------------------------------------SENSOR INSTANTIATION START ---------------------------------------//
 protected:
@@ -160,6 +153,7 @@ void control::turnLeft(int speed, int time)
     _motor_right.run_forever();
   }
 }
+
 //---------------------------------------------------BASIC MOVEMENT END--------------------------------------------//
 
 //--------------------------------------------------BEHAVIOUR START------- ---------------------------------------//
@@ -167,49 +161,9 @@ void control::turnLeft(int speed, int time)
 
 void control::sweepArea()
 {
-    c.driveForward(1000, 200);
-    c.turnRight(500, 200);
-    c.turnLeft(500, 200);
-  while (enemyColorDetected == false)
-  {
-    updateSensorInput();
-    if (ultraSoundSensor < threshold){
-      case = 2;
-      break;
-    }
-    else if (enemyColorDetected == true){ // true skal være en color red eller green
-      case = 3;
-      break;
-    }
-    else if (hp <= 0){
-      case = null;
-      break;
-    }
-  }
+    c.driveForward(100, -1);
 }
 
- updateSensorInput();
-//if (ultrs == false && color == false = hp false)
-{
-    c.driveForward(1000, 200);
-    updateSensorInput();
-    c.turnRight(500, 200);
-    updateSensorInput();
-    c.turnLeft(500, 200);
-}
-else if 
- if (ultraSoundSensor < threshold){
-      case = 2;
-      break;
-    }
-    else if (enemyColorDetected == true){ // true skal være en color red eller green
-      case = 3;
-      break;
-    }
-    else if (hp <= 0){
-      case = null;
-      break;
-    }
 
 void control::avoidObstacle()
 {
@@ -222,26 +176,26 @@ void control::avoidObstacle()
     
 }
 
-
 void control::attackMode()
 {
-    //Set value for sensor
-    int colorValue = _sensor_col_color.value();
     //If statement that takes value from color-sensor and does something with the value
     if (colorValue == redColor) {
         //I stedet for dette forneden, kunne vi k�re en anden funktion, eks. 'driveForward();'
-        _motor_left.set_speed_sp(-speed);
-
-        _motor_right.set_speed_sp(-speed);
+        while (bumperSensor == false)
+        {
+        driveForward(1000, -1)
+        }
     }
     else if (colorValue == greenColor) {
-        _motor_left.set_speed_sp(-speed);
+        driveBackwards(1000, 200)
     }
 }
 
 void control::updateSensorInput(){
   //Set value for sensor
-     ultrasoundValue = _sensor_us_dist_cm.value();		//x value er i mm ikke cm 
+     ultraSoundValue = _sensor_us_dist_cm.value();		//x value er i mm ikke cm 
+     colorValue = _sensor_col_color.value();
+     bumperSensor = _sensor_touch.value();
 }
 
 void control::dead()
@@ -266,73 +220,52 @@ void control::dead()
 //--------------------------------------------------BEHAVIOUR END---------------------------------------//
 //--------------------------------------------------MAIN START ---------------------------------------//
 
+bool enemyColorDetected = false;
+bool bumperSensor = false;
+
+int hpCounter = 3;
+int redColor = 5;
+int greenColor = 3;
+      //Set value for sensor
+int colorValue;
+int case = 1;
+float ultraSoundValue;
+float threshold = 50f;
+float backOffthresHold = 80f;
 
 int main()
 {
   control c;
   c.initialized();
   //Set mode
-    _sensor_us_dist_cm.set_mode(ultrasonic_sensor::mode_us_dist_cm);
+  _sensor_us_dist_cm.set_mode(ultrasonic_sensor::mode_us_dist_cm);
 
-
-  if (enemyColorDetected == true)
-  {           //checking for enemy color
-    case = 3; //going to attackMode
-	}
-
-	if (obastacleDetected == true){
-		case = 2;
-	}
-
-	if (hpCounter == 0){
-		case = 4;
-	}
-
-    /*
-    sweepArea()
+    while (1)
     {
-    if (enemyColorDetected == false && ultrasoundValue <= 50.0f)
+    updateSensorInput();
+    if (enemyColorDetected == false && ultraSoundValue > threshold && bumperSensor == false && hpCounter > 0)
     {
-    AvoidObstacles();
+      sweepArea();
     }
-    else if(enemyColorDetected == true && colorValue == 3)
+    else if (enemyColorDetected == true)
     {
-    attackMode();
+      attackMode();
     }
-    else if (bumper sensor == true)
+    else if (ultraSoundValue < threshold)
     {
-    dead();
+        driveBackwards(500, 200);
+        turnLeft(500,400);
     }
-    */
- 
+    else if (bumperSensor == true)
+    {
+        driveBackwards(500, 200);
+        turnLeft(500,400);
+    }
 
-	
-
- 
-
-  while (1)
-      {
-         switch (case) {
-	  case 1:
-      sweepArea(); //explores the area for enemies then goes to either avoidObstacle or attackMode
-      break;
-
-    case 2:
-      avoidObstacle(); //backsoff and goes back to sweepArea
-      break;
-
-    case 3:
-      attackMode(); //attacks the enenmy and goes to either sweep og avoidObstacle depending on surcummm.
-      break;
-
-    case 4:
+    else if (hpCounter == 0)
+    {
       dead();
-      break;
-
-      
-    
-    default: dead();
-  }
-      }
+    }
+    }
       
 }
