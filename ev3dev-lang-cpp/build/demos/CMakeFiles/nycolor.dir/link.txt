@@ -1,0 +1,1 @@
+/usr/bin/arm-linux-gnueabi-g++   -O2 -g -DNDEBUG   CMakeFiles/nycolor.dir/nyColor.cpp.o  -o nycolor -rdynamic ../libev3dev.a -lpthread 

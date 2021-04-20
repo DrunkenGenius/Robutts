@@ -99,17 +99,16 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
 
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # Special rule for the target test
 test:
@@ -122,16 +121,17 @@ test/fast: test
 
 .PHONY : test/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -241,6 +241,21 @@ button-test/fast:
 .PHONY : button-test/fast
 
 # Convenience name for target.
+demos/CMakeFiles/robutts.dir/rule:
+	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/robutts.dir/rule
+.PHONY : demos/CMakeFiles/robutts.dir/rule
+
+# Convenience name for target.
+robutts: demos/CMakeFiles/robutts.dir/rule
+
+.PHONY : robutts
+
+# fast build rule for target.
+robutts/fast:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robutts.dir/build.make demos/CMakeFiles/robutts.dir/build
+.PHONY : robutts/fast
+
+# Convenience name for target.
 demos/CMakeFiles/remote_control-test.dir/rule:
 	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/remote_control-test.dir/rule
 .PHONY : demos/CMakeFiles/remote_control-test.dir/rule
@@ -284,6 +299,48 @@ babyDriv: demos/CMakeFiles/babyDriv.dir/rule
 babyDriv/fast:
 	cd /src/build && $(MAKE) -f demos/CMakeFiles/babyDriv.dir/build.make demos/CMakeFiles/babyDriv.dir/build
 .PHONY : babyDriv/fast
+
+# Convenience name for target.
+demos/CMakeFiles/nycolor.dir/rule:
+	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/nycolor.dir/rule
+.PHONY : demos/CMakeFiles/nycolor.dir/rule
+
+# Convenience name for target.
+nycolor: demos/CMakeFiles/nycolor.dir/rule
+
+.PHONY : nycolor
+
+# fast build rule for target.
+nycolor/fast:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/build
+.PHONY : nycolor/fast
+
+Robutts.o: Robutts.cpp.o
+
+.PHONY : Robutts.o
+
+# target to build an object file
+Robutts.cpp.o:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robutts.dir/build.make demos/CMakeFiles/robutts.dir/Robutts.cpp.o
+.PHONY : Robutts.cpp.o
+
+Robutts.i: Robutts.cpp.i
+
+.PHONY : Robutts.i
+
+# target to preprocess a source file
+Robutts.cpp.i:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robutts.dir/build.make demos/CMakeFiles/robutts.dir/Robutts.cpp.i
+.PHONY : Robutts.cpp.i
+
+Robutts.s: Robutts.cpp.s
+
+.PHONY : Robutts.s
+
+# target to generate assembly for a file
+Robutts.cpp.s:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robutts.dir/build.make demos/CMakeFiles/robutts.dir/Robutts.cpp.s
+.PHONY : Robutts.cpp.s
 
 button-test.o: button-test.cpp.o
 
@@ -420,6 +477,33 @@ ev3dev-lang-test.cpp.s:
 	cd /src/build && $(MAKE) -f demos/CMakeFiles/ev3dev-lang-test.dir/build.make demos/CMakeFiles/ev3dev-lang-test.dir/ev3dev-lang-test.cpp.s
 .PHONY : ev3dev-lang-test.cpp.s
 
+nyColor.o: nyColor.cpp.o
+
+.PHONY : nyColor.o
+
+# target to build an object file
+nyColor.cpp.o:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/nyColor.cpp.o
+.PHONY : nyColor.cpp.o
+
+nyColor.i: nyColor.cpp.i
+
+.PHONY : nyColor.i
+
+# target to preprocess a source file
+nyColor.cpp.i:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/nyColor.cpp.i
+.PHONY : nyColor.cpp.i
+
+nyColor.s: nyColor.cpp.s
+
+.PHONY : nyColor.s
+
+# target to generate assembly for a file
+nyColor.cpp.s:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/nyColor.cpp.s
+.PHONY : nyColor.cpp.s
+
 remote-control.o: remote-control.cpp.o
 
 .PHONY : remote-control.o
@@ -511,17 +595,22 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... edit_cache"
+	@echo "... test"
 	@echo "... ev3dev-lang-test"
 	@echo "... sound-test"
 	@echo "... ev3dev-lang-demo"
 	@echo "... drive-test"
 	@echo "... button-test"
+	@echo "... robutts"
 	@echo "... install"
 	@echo "... remote_control-test"
 	@echo "... remote-control"
 	@echo "... babyDriv"
-	@echo "... test"
-	@echo "... edit_cache"
+	@echo "... nycolor"
+	@echo "... Robutts.o"
+	@echo "... Robutts.i"
+	@echo "... Robutts.s"
 	@echo "... button-test.o"
 	@echo "... button-test.i"
 	@echo "... button-test.s"
@@ -537,6 +626,9 @@ help:
 	@echo "... ev3dev-lang-test.o"
 	@echo "... ev3dev-lang-test.i"
 	@echo "... ev3dev-lang-test.s"
+	@echo "... nyColor.o"
+	@echo "... nyColor.i"
+	@echo "... nyColor.s"
 	@echo "... remote-control.o"
 	@echo "... remote-control.i"
 	@echo "... remote-control.s"

@@ -1,0 +1,1 @@
+/usr/bin/arm-linux-gnueabi-g++   -O2 -g -DNDEBUG   CMakeFiles/robutts.dir/Robutts.cpp.o  -o robutts -rdynamic ../libev3dev.a -lpthread 

@@ -54,7 +54,9 @@ set(CMAKE_DEPEND_INFO_FILES
   "demos/CMakeFiles/ev3dev-lang-demo.dir/DependInfo.cmake"
   "demos/CMakeFiles/drive-test.dir/DependInfo.cmake"
   "demos/CMakeFiles/button-test.dir/DependInfo.cmake"
+  "demos/CMakeFiles/robutts.dir/DependInfo.cmake"
   "demos/CMakeFiles/remote_control-test.dir/DependInfo.cmake"
   "demos/CMakeFiles/remote-control.dir/DependInfo.cmake"
   "demos/CMakeFiles/babyDriv.dir/DependInfo.cmake"
+  "demos/CMakeFiles/nycolor.dir/DependInfo.cmake"
   )

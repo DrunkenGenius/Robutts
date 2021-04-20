@@ -257,6 +257,19 @@ button-test/fast:
 .PHONY : button-test/fast
 
 #=============================================================================
+# Target rules for targets named robutts
+
+# Build rule for target.
+robutts: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 robutts
+.PHONY : robutts
+
+# fast build rule for target.
+robutts/fast:
+	$(MAKE) -f demos/CMakeFiles/robutts.dir/build.make demos/CMakeFiles/robutts.dir/build
+.PHONY : robutts/fast
+
+#=============================================================================
 # Target rules for targets named remote_control-test
 
 # Build rule for target.
@@ -294,6 +307,19 @@ babyDriv: cmake_check_build_system
 babyDriv/fast:
 	$(MAKE) -f demos/CMakeFiles/babyDriv.dir/build.make demos/CMakeFiles/babyDriv.dir/build
 .PHONY : babyDriv/fast
+
+#=============================================================================
+# Target rules for targets named nycolor
+
+# Build rule for target.
+nycolor: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nycolor
+.PHONY : nycolor
+
+# fast build rule for target.
+nycolor/fast:
+	$(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/build
+.PHONY : nycolor/fast
 
 ev3dev.o: ev3dev.cpp.o
 
@@ -342,9 +368,11 @@ help:
 	@echo "... ev3dev-lang-demo"
 	@echo "... drive-test"
 	@echo "... button-test"
+	@echo "... robutts"
 	@echo "... remote_control-test"
 	@echo "... remote-control"
 	@echo "... babyDriv"
+	@echo "... nycolor"
 	@echo "... ev3dev.o"
 	@echo "... ev3dev.i"
 	@echo "... ev3dev.s"
