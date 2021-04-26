@@ -189,7 +189,7 @@ void control::mainControl()
 {
   //Set mode
   _sensor_us_dist_cm.set_mode(ultrasonic_sensor::mode_us_dist_cm);
-  _sensor_col_color.set_mode(color_sensor::mode_rgb_raw);
+  _sensor_col_color.set_mode(color_sensor::mode_col_color);
 
   while (1)
   {
@@ -225,6 +225,7 @@ void control::mainControl()
 	  case 1:
         if (!sweeping){
           std::cout << "StartSweeping" << std::endl;
+          std::cout << colorValue << std::endl;
           startSweepTime = time(NULL);
           endSweepTime = startSweepTime + 5;
           turnLeft(100, -1);
