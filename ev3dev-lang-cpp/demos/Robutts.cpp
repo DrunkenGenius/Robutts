@@ -265,7 +265,7 @@ void control::mainControl()
       std::cout << "BumperSensor triggered" << std::endl;
       driveBackwards(500, 1000);
       usleep(1 * microsecond);
-      turnLeft(500, 400);
+      turnLeft(500, 1000);
       usleep(1 * microsecond);;
     }
 
