@@ -47,7 +47,7 @@ public:
   bool enemyColorDetected = false;
   bool bumperSensor = false;
 
-  //int case = 1;
+  int case = 1;
 
   int hpCounter = 3;
   int redColor = 5;
@@ -65,17 +65,6 @@ public:
   time_t startSweepTime;
   time_t endSweepTime;
   bool sweeping = false;
-
-  //Case enum
-  enum Cases
-  {
-    sweep,
-    charge,
-    avoid,
-    changepos,
-    dead
-  };
-  Cases case = sweep;
 
   //--------------------------------------------------VARIABLES AND VOIDS  END ---------------------------------------//
   //--------------------------------------------------SENSOR INSTANTIATION START ---------------------------------------//
@@ -208,32 +197,32 @@ void control::mainControl()
     if (greenColor == false && ultraSoundValue > threshold && bumperSensor == false && hpCounter > 0)
     {
     //sweepArea();
-      case = sweep;
+      case = 0;
     }
     else if (colorValue == greenColor)
     {
       std::cout << "Attackmode" << std::endl;
-      case = charge;
+      case = 2;
     }
     else if (ultraSoundValue < threshold)
     {
       std::cout << "US triggered" << std::endl;
-      case = avoid;
+      case = 1;
     }
     else if (bumperSensor == true)
     {
       std::cout << "BumperSensor triggered" << std::endl;
-      case = avoid;
+      case = 1;
     }
     else if (hpCounter == 0)
     {
       std::cout << "DEAD" << std::endl;
-      case = dead;
+      case = -1;
     }
 
 // De mulige cases bliver sat i enumeratoren i toppen enum case { sweep, charge, avoid, changepos, dead };
     switch (case) {
-	  case sweep:
+	  case 0:
         if (!sweeping)
         {
           startTime = time(NULL);
@@ -245,7 +234,7 @@ void control::mainControl()
         {
           if (colorSensor == greenColor)
           {
-          case = charge;
+          case = 2;
           sweeping = false;
         }else if(endtime < time(NULL)){
           //Hvis vi går over end time bruger vi modulu til at skifte imellem at køre ligeud og dreje til venstre indtil vi detecter en color, eller skal avoide
@@ -258,7 +247,7 @@ void control::mainControl()
       }
       break;
 
-    case avoid:
+    case 1:
             //avoidObstacle(); //backsoff and goes back to sweepArea
             driveBackwards(100, -1);
             if (ultraSoundValue > threshold)
@@ -268,26 +257,27 @@ void control::mainControl()
             }
             break;
 
-          case changepos:
-            //attackMode(); //attacks the enenmy and goes to either sweep og avoidObstacle depending on surcummm.
-            break;
+    case 2:
+      //attackMode(); //attacks the enenmy and goes to either sweep og avoidObstacle depending on surcummm.
+      break;
 
-          case charge:
-            int initialThreshold = threshold;
-            threshold = 0;
-            driveForward(500, -1);
-            if(bumperSensor == true){
-              threshold = initialThreshold;
-            }
-            break;
+    case 3:
+      int initialThreshold = threshold;
+      threshold = 0;
+      driveForward(500, -1);
+       if (bumperSensor == true)
+       {
+        threshold = initialThreshold;
+       }
+       break;
 
-          default:
-            _motor_left.stop_action();
-            _motor_right.stop_action();
-            break;
-          }
-        }
-      }
+    default:
+      _motor_left.stop_action();
+      _motor_right.stop_action();
+      break;
+     }
+   }
+}
 
       void control::dead()
       { //robot dies and spins around like a dead fly.
