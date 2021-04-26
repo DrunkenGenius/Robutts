@@ -263,10 +263,10 @@ void control::mainControl()
     else if (bumperSensor == true)
     {
       std::cout << "BumperSensor triggered" << std::endl;
-      driveBackwards(500, 200);
-      usleep(200 * microsecond);
+      driveBackwards(500, 1000);
+      usleep(1 * microsecond);
       turnLeft(500, 400);
-      usleep(400 * microsecond);;
+      usleep(1 * microsecond);;
     }
 
     else if (hpCounter == 0)
