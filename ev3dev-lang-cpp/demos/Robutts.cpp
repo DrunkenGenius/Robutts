@@ -227,21 +227,20 @@ void control::mainControl()
   while (1)
   {
     updateSensorInput();
-    if (enemyColorDetected == false && ultraSoundValue > threshold && bumperSensor == false && hpCounter > 0)
+    if (greenColor == false && ultraSoundValue > threshold && bumperSensor == false && hpCounter > 0)
     {
-      sweepArea();
-      /*
+      //sweepArea();
       if (!sweeping)
       {
         startTime = time(NULL);
         endtime = startTime + 5;
-        sweeping = true
+		sweeping = true;
       }
       else if (sweeping)
       {
+		  turnLeft(100, -1);
         if (colorSensor == greenColor)
         {
-          charge straight  
           sweeping = false
         }else if(endtime <= time(NULL)){
           case = changePosition;
