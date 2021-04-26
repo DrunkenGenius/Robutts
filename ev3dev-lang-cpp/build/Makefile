@@ -192,6 +192,19 @@ api_tests/fast:
 .PHONY : api_tests/fast
 
 #=============================================================================
+# Target rules for targets named nycolor
+
+# Build rule for target.
+nycolor: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nycolor
+.PHONY : nycolor
+
+# fast build rule for target.
+nycolor/fast:
+	$(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/build
+.PHONY : nycolor/fast
+
+#=============================================================================
 # Target rules for targets named ev3dev-lang-test
 
 # Build rule for target.
@@ -309,17 +322,17 @@ babyDriv/fast:
 .PHONY : babyDriv/fast
 
 #=============================================================================
-# Target rules for targets named nycolor
+# Target rules for targets named robuttsT
 
 # Build rule for target.
-nycolor: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 nycolor
-.PHONY : nycolor
+robuttsT: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 robuttsT
+.PHONY : robuttsT
 
 # fast build rule for target.
-nycolor/fast:
-	$(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/build
-.PHONY : nycolor/fast
+robuttsT/fast:
+	$(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/build
+.PHONY : robuttsT/fast
 
 ev3dev.o: ev3dev.cpp.o
 
@@ -363,6 +376,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... api_tests"
+	@echo "... nycolor"
 	@echo "... ev3dev-lang-test"
 	@echo "... sound-test"
 	@echo "... ev3dev-lang-demo"
@@ -372,7 +386,7 @@ help:
 	@echo "... remote_control-test"
 	@echo "... remote-control"
 	@echo "... babyDriv"
-	@echo "... nycolor"
+	@echo "... robuttsT"
 	@echo "... ev3dev.o"
 	@echo "... ev3dev.i"
 	@echo "... ev3dev.s"

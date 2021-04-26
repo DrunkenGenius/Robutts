@@ -155,6 +155,7 @@ clean: tests/CMakeFiles/api_tests.dir/clean
 # Directory level rules for directory demos
 
 # Convenience name for "all" pass in the directory.
+demos/all: demos/CMakeFiles/nycolor.dir/all
 demos/all: demos/CMakeFiles/ev3dev-lang-test.dir/all
 demos/all: demos/CMakeFiles/sound-test.dir/all
 demos/all: demos/CMakeFiles/ev3dev-lang-demo.dir/all
@@ -164,11 +165,12 @@ demos/all: demos/CMakeFiles/robutts.dir/all
 demos/all: demos/CMakeFiles/remote_control-test.dir/all
 demos/all: demos/CMakeFiles/remote-control.dir/all
 demos/all: demos/CMakeFiles/babyDriv.dir/all
-demos/all: demos/CMakeFiles/nycolor.dir/all
+demos/all: demos/CMakeFiles/robuttsT.dir/all
 
 .PHONY : demos/all
 
 # Convenience name for "clean" pass in the directory.
+demos/clean: demos/CMakeFiles/nycolor.dir/clean
 demos/clean: demos/CMakeFiles/ev3dev-lang-test.dir/clean
 demos/clean: demos/CMakeFiles/sound-test.dir/clean
 demos/clean: demos/CMakeFiles/ev3dev-lang-demo.dir/clean
@@ -178,7 +180,7 @@ demos/clean: demos/CMakeFiles/robutts.dir/clean
 demos/clean: demos/CMakeFiles/remote_control-test.dir/clean
 demos/clean: demos/CMakeFiles/remote-control.dir/clean
 demos/clean: demos/CMakeFiles/babyDriv.dir/clean
-demos/clean: demos/CMakeFiles/nycolor.dir/clean
+demos/clean: demos/CMakeFiles/robuttsT.dir/clean
 
 .PHONY : demos/clean
 
@@ -186,6 +188,43 @@ demos/clean: demos/CMakeFiles/nycolor.dir/clean
 demos/preinstall:
 
 .PHONY : demos/preinstall
+
+#=============================================================================
+# Target rules for target demos/CMakeFiles/nycolor.dir
+
+# All Build rule for target.
+demos/CMakeFiles/nycolor.dir/all: CMakeFiles/ev3dev.dir/all
+	$(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/depend
+	$(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=16,17 "Built target nycolor"
+.PHONY : demos/CMakeFiles/nycolor.dir/all
+
+# Include target in all.
+all: demos/CMakeFiles/nycolor.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+demos/CMakeFiles/nycolor.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /src/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/nycolor.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /src/build/CMakeFiles 0
+.PHONY : demos/CMakeFiles/nycolor.dir/rule
+
+# Convenience name for target.
+nycolor: demos/CMakeFiles/nycolor.dir/rule
+
+.PHONY : nycolor
+
+# clean rule for target.
+demos/CMakeFiles/nycolor.dir/clean:
+	$(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/clean
+.PHONY : demos/CMakeFiles/nycolor.dir/clean
+
+# clean rule for target.
+clean: demos/CMakeFiles/nycolor.dir/clean
+
+.PHONY : clean
 
 #=============================================================================
 # Target rules for target demos/CMakeFiles/ev3dev-lang-test.dir
@@ -231,7 +270,7 @@ clean: demos/CMakeFiles/ev3dev-lang-test.dir/clean
 demos/CMakeFiles/sound-test.dir/all: CMakeFiles/ev3dev.dir/all
 	$(MAKE) -f demos/CMakeFiles/sound-test.dir/build.make demos/CMakeFiles/sound-test.dir/depend
 	$(MAKE) -f demos/CMakeFiles/sound-test.dir/build.make demos/CMakeFiles/sound-test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=24,25 "Built target sound-test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=26,27 "Built target sound-test"
 .PHONY : demos/CMakeFiles/sound-test.dir/all
 
 # Include target in all.
@@ -521,39 +560,39 @@ clean: demos/CMakeFiles/babyDriv.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target demos/CMakeFiles/nycolor.dir
+# Target rules for target demos/CMakeFiles/robuttsT.dir
 
 # All Build rule for target.
-demos/CMakeFiles/nycolor.dir/all: CMakeFiles/ev3dev.dir/all
-	$(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/depend
-	$(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=16,17 "Built target nycolor"
-.PHONY : demos/CMakeFiles/nycolor.dir/all
+demos/CMakeFiles/robuttsT.dir/all: CMakeFiles/ev3dev.dir/all
+	$(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/depend
+	$(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=24,25 "Built target robuttsT"
+.PHONY : demos/CMakeFiles/robuttsT.dir/all
 
 # Include target in all.
-all: demos/CMakeFiles/nycolor.dir/all
+all: demos/CMakeFiles/robuttsT.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-demos/CMakeFiles/nycolor.dir/rule: cmake_check_build_system
+demos/CMakeFiles/robuttsT.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /src/build/CMakeFiles 4
-	$(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/nycolor.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/robuttsT.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /src/build/CMakeFiles 0
-.PHONY : demos/CMakeFiles/nycolor.dir/rule
+.PHONY : demos/CMakeFiles/robuttsT.dir/rule
 
 # Convenience name for target.
-nycolor: demos/CMakeFiles/nycolor.dir/rule
+robuttsT: demos/CMakeFiles/robuttsT.dir/rule
 
-.PHONY : nycolor
-
-# clean rule for target.
-demos/CMakeFiles/nycolor.dir/clean:
-	$(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/clean
-.PHONY : demos/CMakeFiles/nycolor.dir/clean
+.PHONY : robuttsT
 
 # clean rule for target.
-clean: demos/CMakeFiles/nycolor.dir/clean
+demos/CMakeFiles/robuttsT.dir/clean:
+	$(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/clean
+.PHONY : demos/CMakeFiles/robuttsT.dir/clean
+
+# clean rule for target.
+clean: demos/CMakeFiles/robuttsT.dir/clean
 
 .PHONY : clean
 

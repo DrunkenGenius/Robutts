@@ -20,6 +20,7 @@
 /src/build/demos/CMakeFiles/rebuild_cache.dir
 /src/build/demos/CMakeFiles/edit_cache.dir
 /src/build/demos/CMakeFiles/test.dir
+/src/build/demos/CMakeFiles/nycolor.dir
 /src/build/demos/CMakeFiles/ev3dev-lang-test.dir
 /src/build/demos/CMakeFiles/sound-test.dir
 /src/build/demos/CMakeFiles/ev3dev-lang-demo.dir
@@ -30,4 +31,4 @@
 /src/build/demos/CMakeFiles/remote_control-test.dir
 /src/build/demos/CMakeFiles/remote-control.dir
 /src/build/demos/CMakeFiles/babyDriv.dir
-/src/build/demos/CMakeFiles/nycolor.dir
+/src/build/demos/CMakeFiles/robuttsT.dir

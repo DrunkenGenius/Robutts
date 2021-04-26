@@ -47,7 +47,7 @@ public:
   bool enemyColorDetected = false;
   bool bumperSensor = false;
 
-  int case = 1;
+  int state = 1;
 
   int hpCounter = 3;
   int redColor = 5;
@@ -197,49 +197,48 @@ void control::mainControl()
     if (greenColor == false && ultraSoundValue > threshold && bumperSensor == false && hpCounter > 0)
     {
     //sweepArea();
-      case = 0;
+      state = 1;
     }
     else if (colorValue == greenColor)
     {
       std::cout << "Attackmode" << std::endl;
-      case = 2;
+      state = 3;
     }
     else if (ultraSoundValue < threshold)
     {
       std::cout << "US triggered" << std::endl;
-      case = 1;
+      state = 2;
     }
     else if (bumperSensor == true)
     {
       std::cout << "BumperSensor triggered" << std::endl;
-      case = 1;
+      state = 2;
     }
     else if (hpCounter == 0)
     {
       std::cout << "DEAD" << std::endl;
-      case = -1;
+      state = -1;
     }
 
-// De mulige cases bliver sat i enumeratoren i toppen enum case { sweep, charge, avoid, changepos, dead };
-    switch (case) {
-	  case 0:
-        if (!sweeping)
-        {
-          startTime = time(NULL);
-          endtime = startTime + 5;
+// De mulige states bliver sat i enumeratoren i toppen enum state { sweep, charge, avoid, changepos, dead };
+  switch (state) {
+	  case 1:
+        if (!sweeping){
+          std::cout << "StartSweeping" << std::endl;
+          startSweepTime = time(NULL);
+          endSweepTime = startSweepTime + 5;
           turnLeft(100, -1);
           sweeping = true;
-        }
-        else if (sweeping)
-        {
-          if (colorSensor == greenColor)
+        }else if(sweeping){
+           std::cout << "Sweeping" << std::endl;
+          if (colorValue == greenColor)
           {
-          case = 2;
+          state = 3;
           sweeping = false;
-        }else if(endtime < time(NULL)){
+        }else if(endSweepTime < time(NULL)){
           //Hvis vi går over end time bruger vi modulu til at skifte imellem at køre ligeud og dreje til venstre indtil vi detecter en color, eller skal avoide
-          if(((time(NULL) - endtime)%6) > 2){
-            driveForward(100, -1)
+          if(((time(NULL) - endSweepTime)%6) > 2){
+            driveForward(100, -1);
           }else{
             turnLeft(100, -1);
           } 
@@ -247,43 +246,36 @@ void control::mainControl()
       }
       break;
 
-    case 1:
+    case 2:
+    std::cout << "Avoid" << std::endl;
+            sweeping = false;
             //avoidObstacle(); //backsoff and goes back to sweepArea
             driveBackwards(100, -1);
             if (ultraSoundValue > threshold)
             {
-              turnLeft(100, 400);
-              usleep(0.4 * microsecond);
+              turnLeft(300, 400);
+              usleep(1 * microsecond);
+              state =1;
             }
             break;
 
-    case 2:
-      //attackMode(); //attacks the enenmy and goes to either sweep og avoidObstacle depending on surcummm.
-      break;
-
     case 3:
+    std::cout << "Attack" << std::endl;
+    sweeping = false;
+      //attackMode(); //attacks the enenmy and goes to either sweep og avoidObstacle depending on surcummm.
       int initialThreshold = threshold;
       threshold = 0;
       driveForward(500, -1);
        if (bumperSensor == true)
        {
         threshold = initialThreshold;
+        state = 2;
        }
-       break;
-
-    default:
-      _motor_left.stop_action();
-      _motor_right.stop_action();
       break;
-     }
+      
    }
 }
-
-      void control::dead()
-      { //robot dies and spins around like a dead fly.
-        _motor_left.stop_action();
-        _motor_right.stop_action();
-      }
+}
 
       //--------------------------------------------------BEHAVIOUR END---------------------------------------//
       //--------------------------------------------------MAIN START ---------------------------------------//

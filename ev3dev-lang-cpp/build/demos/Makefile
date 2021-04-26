@@ -166,6 +166,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+demos/CMakeFiles/nycolor.dir/rule:
+	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/nycolor.dir/rule
+.PHONY : demos/CMakeFiles/nycolor.dir/rule
+
+# Convenience name for target.
+nycolor: demos/CMakeFiles/nycolor.dir/rule
+
+.PHONY : nycolor
+
+# fast build rule for target.
+nycolor/fast:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/build
+.PHONY : nycolor/fast
+
+# Convenience name for target.
 demos/CMakeFiles/ev3dev-lang-test.dir/rule:
 	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/ev3dev-lang-test.dir/rule
 .PHONY : demos/CMakeFiles/ev3dev-lang-test.dir/rule
@@ -301,19 +316,19 @@ babyDriv/fast:
 .PHONY : babyDriv/fast
 
 # Convenience name for target.
-demos/CMakeFiles/nycolor.dir/rule:
-	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/nycolor.dir/rule
-.PHONY : demos/CMakeFiles/nycolor.dir/rule
+demos/CMakeFiles/robuttsT.dir/rule:
+	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/robuttsT.dir/rule
+.PHONY : demos/CMakeFiles/robuttsT.dir/rule
 
 # Convenience name for target.
-nycolor: demos/CMakeFiles/nycolor.dir/rule
+robuttsT: demos/CMakeFiles/robuttsT.dir/rule
 
-.PHONY : nycolor
+.PHONY : robuttsT
 
 # fast build rule for target.
-nycolor/fast:
-	cd /src/build && $(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/build
-.PHONY : nycolor/fast
+robuttsT/fast:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/build
+.PHONY : robuttsT/fast
 
 Robutts.o: Robutts.cpp.o
 
@@ -341,6 +356,33 @@ Robutts.s: Robutts.cpp.s
 Robutts.cpp.s:
 	cd /src/build && $(MAKE) -f demos/CMakeFiles/robutts.dir/build.make demos/CMakeFiles/robutts.dir/Robutts.cpp.s
 .PHONY : Robutts.cpp.s
+
+RobuttsT.o: RobuttsT.cpp.o
+
+.PHONY : RobuttsT.o
+
+# target to build an object file
+RobuttsT.cpp.o:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/RobuttsT.cpp.o
+.PHONY : RobuttsT.cpp.o
+
+RobuttsT.i: RobuttsT.cpp.i
+
+.PHONY : RobuttsT.i
+
+# target to preprocess a source file
+RobuttsT.cpp.i:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/RobuttsT.cpp.i
+.PHONY : RobuttsT.cpp.i
+
+RobuttsT.s: RobuttsT.cpp.s
+
+.PHONY : RobuttsT.s
+
+# target to generate assembly for a file
+RobuttsT.cpp.s:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/RobuttsT.cpp.s
+.PHONY : RobuttsT.cpp.s
 
 button-test.o: button-test.cpp.o
 
@@ -597,6 +639,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... test"
+	@echo "... nycolor"
 	@echo "... ev3dev-lang-test"
 	@echo "... sound-test"
 	@echo "... ev3dev-lang-demo"
@@ -607,10 +650,13 @@ help:
 	@echo "... remote_control-test"
 	@echo "... remote-control"
 	@echo "... babyDriv"
-	@echo "... nycolor"
+	@echo "... robuttsT"
 	@echo "... Robutts.o"
 	@echo "... Robutts.i"
 	@echo "... Robutts.s"
+	@echo "... RobuttsT.o"
+	@echo "... RobuttsT.i"
+	@echo "... RobuttsT.s"
 	@echo "... button-test.o"
 	@echo "... button-test.i"
 	@echo "... button-test.s"
