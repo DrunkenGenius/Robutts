@@ -28,10 +28,8 @@ public:
   void driveBackwards(int speed, int time = 0);
   void turnRight(int speed, int time = 0);
   void turnLeft(int speed, int time = 0);
-  void sweepArea();
-  void avoidObstacle();
-  void attackMode();
-  void dead();
+  void mainControl();
+  void updateSensorInput();
 
   void stop();
   void reset();
@@ -47,24 +45,53 @@ public:
   unsigned int microsecond = 1000000;
 
   bool enemyColorDetected = false;
-  bool obstacleDetected = false;
+  bool bumperSensor = false;
+
+  //int case = 1;
 
   int hpCounter = 3;
   int redColor = 5;
   int greenColor = 3;
+  //Set value for sensor
+  int colorValue;
 
+  int speed = 500;
+  float ultraSoundValue;
+  float threshold = 80;
+  float backOffthresHold = 80;
 
+  //Sweep
+  time_t currentTime;
+  time_t startSweepTime;
+  time_t endSweepTime;
+  bool sweeping = false;
+
+  //Case enum
+  enum Cases
+  {
+    sweep,
+    charge,
+    avoid,
+    changepos,
+    dead
+  };
+  Cases case = sweep;
+
+  //--------------------------------------------------VARIABLES AND VOIDS  END ---------------------------------------//
+  //--------------------------------------------------SENSOR INSTANTIATION START ---------------------------------------//
 protected:
   large_motor _motor_left;
   large_motor _motor_right;
   touch_sensor _sensor_touch;
-  ultrasonic_sensor	_sensor_us_dist_cm;
-  color_sensor    _sensor_col_color;
+  ultrasonic_sensor _sensor_us_dist_cm;
+  color_sensor _sensor_col_color;
 };
 
 control::control() : _motor_left(OUTPUT_B),
                      _motor_right(OUTPUT_C),
-                     _sensor_touch(INPUT_1)
+                     _sensor_touch(INPUT_1),
+                     _sensor_col_color(INPUT_2),
+                     _sensor_us_dist_cm(INPUT_3)
 {
 }
 
@@ -72,12 +99,14 @@ bool control::initialized() const
 {
   return (_motor_left.connected() &&
           _motor_right.connected() &&
-      //Color sensor
-      _sensor_col_color.connected() &&
-      //Ultralydssensor
-      _sensor_us_dist_cm.connected() &&
+          //Color sensor
+          _sensor_col_color.connected() &&
+          //Ultralydssensor
+          _sensor_us_dist_cm.connected() &&
           _sensor_touch.connected());
 }
+//--------------------------------------------------SENSOR INSTANTIATION END ---------------------------------------//
+//---------------------------------------------------BASIC MOVEMENT START--------------------------------------------//
 
 void control::driveForward(int speed, int time)
 {
@@ -155,132 +184,123 @@ void control::turnLeft(int speed, int time)
   }
 }
 
-void control::sweepArea()
+//---------------------------------------------------BASIC MOVEMENT END--------------------------------------------//
+
+//--------------------------------------------------BEHAVIOUR START------- ---------------------------------------//
+
+void control::updateSensorInput()
 {
-  while (enemyColorDetected == false)
-  {
-    c.driveForward(1000, 200);
-    c.turnRight(500, 200);
-    c.turnLeft(500, 200);
-  }
+  //Set value for sensor
+  ultraSoundValue = _sensor_us_dist_cm.value(); //x value er i mm ikke cm
+  colorValue = _sensor_col_color.value();
+  bumperSensor = _sensor_touch.value();
 }
 
-void control::avoidObstacle()
+void control::mainControl()
 {
-    //Set mode
-    _sensor_us_dist_cm.set_mode(ultrasonic_sensor::mode_us_dist_cm);
-    //Set value for sensor
-    float ultrasoundValue = _sensor_us_dist_cm.value();		//x value er i mm ikke cm 
-    //If statement that takes value from distance sensor and does something with the value
-    if (ultrasoundValue <= 50.0f) {
-        driveBackwards();
-        turnLeft();
-    }
-}
-
-
-void control::attackMode()
-{
-    //Set value for sensor
-    int colorValue = _sensor_col_color.value();
-    //If statement that takes value from color-sensor and does something with the value
-    if (colorValue == redColor) {
-        //I stedet for dette forneden, kunne vi k�re en anden funktion, eks. 'driveForward();'
-        _motor_left.set_speed_sp(-speed);
-
-        _motor_right.set_speed_sp(-speed);
-    }
-    else if (colorValue == greenColor) {
-        _motor_left.set_speed_sp(-speed);
-    }
-}
-
-
-void control::dead()
-{ //robot dies and spins around like a dead fly.
-  _motor_left.stop_action();
-  _motor_right.stop_action();
-  _motor_left.set_speed_sp(-speed);
-  _motor_right.set_speed_sp(speed);
-  usleep(1 * microsecond); //sleeps for 1 second
-  if (time > 0)
-  {
-    _motor_left.set_time_sp(time).run_timed();
-    _motor_right.set_time_sp(time).run_timed();
-  }
-  else
-  {
-    _motor_left.run_forever();
-    _motor_right.run_forever();
-  }
-}
-
-int main()
-{
-  control c;
-  c.initialized();
-
-  if (enemyColorDetected == true)
-  {           //checking for enemy color
-    case = 3; //going to attackMode
-	}
-
-	if (obastacleDetected == true){
-		case = 2;
-	}
-
-	if (hpCounter == 0){
-		case = 4;
-	}
-
-    /*
-    sweepArea()
-    {
-    if (enemyColorDetected == false && ultrasoundValue <= 50.0f)
-    {
-    AvoidObstacles();
-    }
-    else if(enemyColorDetected == true && colorValue == 3)
-    {
-    attackMode();
-    }
-    else if (bumper sensor == true)
-    {
-    dead();
-    }
-    */
- 
-
-	
-
-  switch (case) {
-	  case 1:
-      sweepArea(); //explores the area for enemies then goes to either avoidObstacle or attackMode
-      break;
-
-    case 2:
-      avoidObstacle(); //backsoff and goes back to sweepArea
-      break;
-
-    case 3:
-      attackMode(); //attacks the enenmy and goes to either sweep og avoidObstacle depending on surcummm.
-      break;
-
-    case 4:
-      dead();
-      break;
-
-      
-    
-    default: dead();
-  }
+  //Set mode
+  _sensor_us_dist_cm.set_mode(ultrasonic_sensor::mode_us_dist_cm);
+  _sensor_col_color.set_mode(color_sensor::mode_rgb_raw);
 
   while (1)
-      {
-        c.driveForward(500, 200);
-        c.driveBackwards(500, 200);
-        c.turnRight(500, 200);
-        c.turnLeft(500, 200);
+  {
+    updateSensorInput();
+    if (greenColor == false && ultraSoundValue > threshold && bumperSensor == false && hpCounter > 0)
+    {
+    //sweepArea();
+      case = sweep;
+    }
+    else if (colorValue == greenColor)
+    {
+      std::cout << "Attackmode" << std::endl;
+      case = charge;
+    }
+    else if (ultraSoundValue < threshold)
+    {
+      std::cout << "US triggered" << std::endl;
+      case = avoid;
+    }
+    else if (bumperSensor == true)
+    {
+      std::cout << "BumperSensor triggered" << std::endl;
+      case = avoid;
+    }
+    else if (hpCounter == 0)
+    {
+      std::cout << "DEAD" << std::endl;
+      case = dead;
+    }
+
+// De mulige cases bliver sat i enumeratoren i toppen enum case { sweep, charge, avoid, changepos, dead };
+    switch (case) {
+	  case sweep:
+        if (!sweeping)
+        {
+          startTime = time(NULL);
+          endtime = startTime + 5;
+          turnLeft(100, -1);
+          sweeping = true;
+        }
+        else if (sweeping)
+        {
+          if (colorSensor == greenColor)
+          {
+          case = charge;
+          sweeping = false;
+        }else if(endtime < time(NULL)){
+          //Hvis vi går over end time bruger vi modulu til at skifte imellem at køre ligeud og dreje til venstre indtil vi detecter en color, eller skal avoide
+          if(((time(NULL) - endtime)%6) > 2){
+            driveForward(100, -1)
+          }else{
+            turnLeft(100, -1);
+          } 
+        }
       }
-      
-}
+      break;
+
+    case avoid:
+            //avoidObstacle(); //backsoff and goes back to sweepArea
+            driveBackwards(100, -1);
+            if (ultraSoundValue > threshold)
+            {
+              turnLeft(100, 400);
+              usleep(0.4 * microsecond);
+            }
+            break;
+
+          case changepos:
+            //attackMode(); //attacks the enenmy and goes to either sweep og avoidObstacle depending on surcummm.
+            break;
+
+          case charge:
+            int initialThreshold = threshold;
+            threshold = 0;
+            driveForward(500, -1);
+            if(bumperSensor == true){
+              threshold = initialThreshold;
+            }
+            break;
+
+          default:
+            _motor_left.stop_action();
+            _motor_right.stop_action();
+            break;
+          }
+        }
+      }
+
+      void control::dead()
+      { //robot dies and spins around like a dead fly.
+        _motor_left.stop_action();
+        _motor_right.stop_action();
+      }
+
+      //--------------------------------------------------BEHAVIOUR END---------------------------------------//
+      //--------------------------------------------------MAIN START ---------------------------------------//
+
+      int main()
+      {
+        control c;
+        c.initialized();
+        c.mainControl();
+      }
