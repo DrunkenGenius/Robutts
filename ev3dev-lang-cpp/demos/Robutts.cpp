@@ -62,6 +62,12 @@ public:
   float threshold = 80;
   float backOffthresHold = 80;
 
+  //Sweep
+  time_t currentTime;
+  time_t startSweepTime;
+  time_t endSweepTime;
+  bool sweeping = false;
+
   //--------------------------------------------------VARIABLES AND VOIDS  END ---------------------------------------//
   //--------------------------------------------------SENSOR INSTANTIATION START ---------------------------------------//
 protected:
@@ -182,7 +188,7 @@ void control::avoidObstacle()
 {
   while (ultraSoundValue < backOffthresHold)
   { //vi bakker indtil at vi er en bestemt længde væk fra væggen
-    driveBackwards(500,-1);
+    driveBackwards(500, -1);
   }
   turnLeft(500, 200);
 }
@@ -213,9 +219,10 @@ void control::updateSensorInput()
 }
 
 void control::mainControl()
-  {
-     //Set mode
+{
+  //Set mode
   _sensor_us_dist_cm.set_mode(ultrasonic_sensor::mode_us_dist_cm);
+  _sensor_col_color.set_mode(color_sensor::mode_rgb_raw);
 
   while (1)
   {
@@ -223,10 +230,28 @@ void control::mainControl()
     if (enemyColorDetected == false && ultraSoundValue > threshold && bumperSensor == false && hpCounter > 0)
     {
       sweepArea();
+      /*
+      if (!sweeping)
+      {
+        startTime = time(NULL);
+        endtime = startTime + 5;
+        sweeping = true
+      }
+      else if (sweeping)
+      {
+        if (colorSensor == greenColor)
+        {
+          charge straight  
+          sweeping = false
+        }else if(endtime <= time(NULL)){
+          case = changePosition;
+        }
+      }
+      */
     }
     else if (colorValue == greenColor)
     {
-	  std::cout << "Attackmode" << std::endl;
+      std::cout << "Attackmode" << std::endl;
       attackMode();
     }
     else if (ultraSoundValue < threshold)
@@ -234,22 +259,23 @@ void control::mainControl()
       std::cout << "US triggered" << std::endl;
       driveBackwards(500, 200);
       turnLeft(500, 400);
-      
     }
     else if (bumperSensor == true)
     {
       std::cout << "BumperSensor triggered" << std::endl;
       driveBackwards(500, 200);
+      usleep(200 * microsecond);
       turnLeft(500, 400);
+      usleep(400 * microsecond);;
     }
 
     else if (hpCounter == 0)
     {
-       std::cout << "DEAD" << std::endl;
+      std::cout << "DEAD" << std::endl;
       dead();
     }
   }
-  }
+}
 
 void control::dead()
 { //robot dies and spins around like a dead fly.
