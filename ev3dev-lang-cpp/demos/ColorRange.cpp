@@ -58,7 +58,9 @@ public:
     int noColor = 0;
     int brownColor = 7;
   //Set value for sensor
-  int colorValue;
+  int redColorValue;
+  int greenColorValue;
+  int blueColorValue;
 
   int speed = 500;
   float ultraSoundValue;
@@ -185,8 +187,9 @@ void control::turnLeft(int speed, int time)
 void control::updateSensorInput()
 {
   //Set value for sensor
-  ultraSoundValue = _sensor_us_dist_cm.value(); //x value er i mm ikke cm
-  colorValue = _sensor_col_color.value();
+  redColorValue = _sensor_col_color.value(0);
+  greenColorValue = _sensor_col_color.value(1);
+  blueColorValue = _sensor_col_color.value(2);
   bumperSensor = _sensor_touch.value();
 }
 
@@ -194,116 +197,17 @@ void control::mainControl()
 {
   //Set mode
   _sensor_us_dist_cm.set_mode(ultrasonic_sensor::mode_us_dist_cm);
-  _sensor_col_color.set_mode(color_sensor::mode_col_color);
+  _sensor_col_color.set_mode(color_sensor::mode_rgb_raw);
 
   while (1)
   {
     updateSensorInput();
-    if (greenColor == false && ultraSoundValue > threshold && bumperSensor == false && hpCounter > 0)
+    
+    if (bumperSensor == true)
     {
-    //sweepArea();
-      state = 1;
+      std::cout << "Red: " << redColorValue << ", Green: " << greenColorValue << ", Blue: " << blueColorValue << std::endl;
     }
-    else if (colorValue == greenColor)
-    {
-      std::cout << "Attackmode" << std::endl;
-      state = 3;
-    }
-    else if (ultraSoundValue < threshold)
-    {
-      std::cout << "US triggered" << std::endl;
-      state = 2;
-    }
-    else if (bumperSensor == true)
-    {
-      std::cout << "BumperSensor triggered" << std::endl;
-      state = 2;
-    }
-    else if (hpCounter == 0)
-    {
-      std::cout << "DEAD" << std::endl;
-      state = -1;
-    }
-      
-    if(colorValue == greenColor){
-        std::cout << "greenColor" << std::endl;   
-    }
-      if(colorValue == whiteColor){
-        std::cout << "whiteColor" << std::endl;   
-    }
-      if(colorValue == redColor){
-        std::cout << "redColor" << std::endl;   
-    }
-      if(colorValue == yellowColor){
-        std::cout << "yellowColor" << std::endl;   
-    }
-      if(colorValue == noColor){
-        std::cout << "noColor" << std::endl;   
-    }
-      if(colorValue == blackColor){
-        std::cout << "blackColor" << std::endl;   
-    }
-      if(colorValue == blackColor){
-        std::cout << "brownColor" << std::endl;   
-    }
-      
-
-// De mulige states bliver sat i enumeratoren i toppen enum state { sweep, charge, avoid, changepos, dead };
-  switch (state) {
-	  case 1:
-        if (!sweeping){
-          std::cout << "StartSweeping" << std::endl;
-          std::cout << colorValue << std::endl;
-          startSweepTime = time(NULL);
-          endSweepTime = startSweepTime + 5;
-          turnLeft(100, -1);
-          sweeping = true;
-        }else if(sweeping){
-           std::cout << "Sweeping" << std::endl;
-          if (colorValue == greenColor)
-          {
-          state = 3;
-          sweeping = false;
-        }else if(endSweepTime < time(NULL)){
-          //Hvis vi går over end time bruger vi modulu til at skifte imellem at køre ligeud og dreje til venstre indtil vi detecter en color, eller skal avoide
-          if(((time(NULL) - endSweepTime)%6) > 2){
-            driveForward(100, -1);
-          }else{
-            turnLeft(100, -1);
-          } 
-        }
-      }
-      break;
-
-    case 2:
-    std::cout << "Avoid" << std::endl;
-            sweeping = false;
-            //avoidObstacle(); //backsoff and goes back to sweepArea
-            driveBackwards(100, -1);
-            if (ultraSoundValue > threshold)
-            {
-              turnLeft(300, 400);
-              usleep(1 * microsecond);
-              state =1;
-            }
-            break;
-
-    case 3:
-    std::cout << "Attack" << std::endl;
-    sweeping = false;
-      //attackMode(); //attacks the enenmy and goes to either sweep og avoidObstacle depending on surcummm.
-      int initialThreshold = threshold;
-      threshold = 0;
-      driveForward(500, -1);
-       if (bumperSensor == true)
-       {
-        threshold = initialThreshold;
-        state = 2;
-       }
-      break;
-      
-   }
-}
+  }
 }
 
       //--------------------------------------------------BEHAVIOUR END---------------------------------------//

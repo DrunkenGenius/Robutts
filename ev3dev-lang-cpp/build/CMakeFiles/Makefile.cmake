@@ -49,6 +49,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/ev3dev.dir/DependInfo.cmake"
   "tests/CMakeFiles/api_tests.dir/DependInfo.cmake"
+  "demos/CMakeFiles/colorRange.dir/DependInfo.cmake"
   "demos/CMakeFiles/nycolor.dir/DependInfo.cmake"
   "demos/CMakeFiles/ev3dev-lang-test.dir/DependInfo.cmake"
   "demos/CMakeFiles/sound-test.dir/DependInfo.cmake"

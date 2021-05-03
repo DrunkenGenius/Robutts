@@ -166,6 +166,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+demos/CMakeFiles/colorRange.dir/rule:
+	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/colorRange.dir/rule
+.PHONY : demos/CMakeFiles/colorRange.dir/rule
+
+# Convenience name for target.
+colorRange: demos/CMakeFiles/colorRange.dir/rule
+
+.PHONY : colorRange
+
+# fast build rule for target.
+colorRange/fast:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/colorRange.dir/build.make demos/CMakeFiles/colorRange.dir/build
+.PHONY : colorRange/fast
+
+# Convenience name for target.
 demos/CMakeFiles/nycolor.dir/rule:
 	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/nycolor.dir/rule
 .PHONY : demos/CMakeFiles/nycolor.dir/rule
@@ -329,6 +344,33 @@ robuttsT: demos/CMakeFiles/robuttsT.dir/rule
 robuttsT/fast:
 	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/build
 .PHONY : robuttsT/fast
+
+ColorRange.o: ColorRange.cpp.o
+
+.PHONY : ColorRange.o
+
+# target to build an object file
+ColorRange.cpp.o:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/colorRange.dir/build.make demos/CMakeFiles/colorRange.dir/ColorRange.cpp.o
+.PHONY : ColorRange.cpp.o
+
+ColorRange.i: ColorRange.cpp.i
+
+.PHONY : ColorRange.i
+
+# target to preprocess a source file
+ColorRange.cpp.i:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/colorRange.dir/build.make demos/CMakeFiles/colorRange.dir/ColorRange.cpp.i
+.PHONY : ColorRange.cpp.i
+
+ColorRange.s: ColorRange.cpp.s
+
+.PHONY : ColorRange.s
+
+# target to generate assembly for a file
+ColorRange.cpp.s:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/colorRange.dir/build.make demos/CMakeFiles/colorRange.dir/ColorRange.cpp.s
+.PHONY : ColorRange.cpp.s
 
 Robutts.o: Robutts.cpp.o
 
@@ -639,6 +681,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... test"
+	@echo "... colorRange"
 	@echo "... nycolor"
 	@echo "... ev3dev-lang-test"
 	@echo "... sound-test"
@@ -651,6 +694,9 @@ help:
 	@echo "... remote-control"
 	@echo "... babyDriv"
 	@echo "... robuttsT"
+	@echo "... ColorRange.o"
+	@echo "... ColorRange.i"
+	@echo "... ColorRange.s"
 	@echo "... Robutts.o"
 	@echo "... Robutts.i"
 	@echo "... Robutts.s"

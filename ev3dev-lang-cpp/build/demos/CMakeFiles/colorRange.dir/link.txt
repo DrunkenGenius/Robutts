@@ -1,0 +1,1 @@
+/usr/bin/arm-linux-gnueabi-g++   -O2 -g -DNDEBUG   CMakeFiles/colorRange.dir/ColorRange.cpp.o  -o colorRange -rdynamic ../libev3dev.a -lpthread 

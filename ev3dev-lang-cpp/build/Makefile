@@ -192,6 +192,19 @@ api_tests/fast:
 .PHONY : api_tests/fast
 
 #=============================================================================
+# Target rules for targets named colorRange
+
+# Build rule for target.
+colorRange: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 colorRange
+.PHONY : colorRange
+
+# fast build rule for target.
+colorRange/fast:
+	$(MAKE) -f demos/CMakeFiles/colorRange.dir/build.make demos/CMakeFiles/colorRange.dir/build
+.PHONY : colorRange/fast
+
+#=============================================================================
 # Target rules for targets named nycolor
 
 # Build rule for target.
@@ -376,6 +389,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... api_tests"
+	@echo "... colorRange"
 	@echo "... nycolor"
 	@echo "... ev3dev-lang-test"
 	@echo "... sound-test"

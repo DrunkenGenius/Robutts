@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+..//ev3dev.h
+map
+-
+set
+-
+string
+-
+tuple
+-
+vector
+-
+algorithm
+-
+functional
+-
+memory
+-
+
+/src/demos/ColorRange.cpp
+ev3dev.h
+/src/demos/ev3dev.h
+thread
+-
+chrono
+-
+iostream
+-
+fstream
+-
+unistd.h
+-
+fcntl.h
+-
+linux/input.h
+-
+unistd.h
+-
+

@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /src/build
 CMakeFiles/ev3dev.dir/all:
 	$(MAKE) -f CMakeFiles/ev3dev.dir/build.make CMakeFiles/ev3dev.dir/depend
 	$(MAKE) -f CMakeFiles/ev3dev.dir/build.make CMakeFiles/ev3dev.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=10,11 "Built target ev3dev"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=12,13 "Built target ev3dev"
 .PHONY : CMakeFiles/ev3dev.dir/all
 
 # Include target in all.
@@ -155,6 +155,7 @@ clean: tests/CMakeFiles/api_tests.dir/clean
 # Directory level rules for directory demos
 
 # Convenience name for "all" pass in the directory.
+demos/all: demos/CMakeFiles/colorRange.dir/all
 demos/all: demos/CMakeFiles/nycolor.dir/all
 demos/all: demos/CMakeFiles/ev3dev-lang-test.dir/all
 demos/all: demos/CMakeFiles/sound-test.dir/all
@@ -170,6 +171,7 @@ demos/all: demos/CMakeFiles/robuttsT.dir/all
 .PHONY : demos/all
 
 # Convenience name for "clean" pass in the directory.
+demos/clean: demos/CMakeFiles/colorRange.dir/clean
 demos/clean: demos/CMakeFiles/nycolor.dir/clean
 demos/clean: demos/CMakeFiles/ev3dev-lang-test.dir/clean
 demos/clean: demos/CMakeFiles/sound-test.dir/clean
@@ -190,13 +192,50 @@ demos/preinstall:
 .PHONY : demos/preinstall
 
 #=============================================================================
+# Target rules for target demos/CMakeFiles/colorRange.dir
+
+# All Build rule for target.
+demos/CMakeFiles/colorRange.dir/all: CMakeFiles/ev3dev.dir/all
+	$(MAKE) -f demos/CMakeFiles/colorRange.dir/build.make demos/CMakeFiles/colorRange.dir/depend
+	$(MAKE) -f demos/CMakeFiles/colorRange.dir/build.make demos/CMakeFiles/colorRange.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=8,9 "Built target colorRange"
+.PHONY : demos/CMakeFiles/colorRange.dir/all
+
+# Include target in all.
+all: demos/CMakeFiles/colorRange.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+demos/CMakeFiles/colorRange.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /src/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/colorRange.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /src/build/CMakeFiles 0
+.PHONY : demos/CMakeFiles/colorRange.dir/rule
+
+# Convenience name for target.
+colorRange: demos/CMakeFiles/colorRange.dir/rule
+
+.PHONY : colorRange
+
+# clean rule for target.
+demos/CMakeFiles/colorRange.dir/clean:
+	$(MAKE) -f demos/CMakeFiles/colorRange.dir/build.make demos/CMakeFiles/colorRange.dir/clean
+.PHONY : demos/CMakeFiles/colorRange.dir/clean
+
+# clean rule for target.
+clean: demos/CMakeFiles/colorRange.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target demos/CMakeFiles/nycolor.dir
 
 # All Build rule for target.
 demos/CMakeFiles/nycolor.dir/all: CMakeFiles/ev3dev.dir/all
 	$(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/depend
 	$(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=16,17 "Built target nycolor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=18,19 "Built target nycolor"
 .PHONY : demos/CMakeFiles/nycolor.dir/all
 
 # Include target in all.
@@ -233,7 +272,7 @@ clean: demos/CMakeFiles/nycolor.dir/clean
 demos/CMakeFiles/ev3dev-lang-test.dir/all: CMakeFiles/ev3dev.dir/all
 	$(MAKE) -f demos/CMakeFiles/ev3dev-lang-test.dir/build.make demos/CMakeFiles/ev3dev-lang-test.dir/depend
 	$(MAKE) -f demos/CMakeFiles/ev3dev-lang-test.dir/build.make demos/CMakeFiles/ev3dev-lang-test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=14,15 "Built target ev3dev-lang-test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=16,17 "Built target ev3dev-lang-test"
 .PHONY : demos/CMakeFiles/ev3dev-lang-test.dir/all
 
 # Include target in all.
@@ -270,7 +309,7 @@ clean: demos/CMakeFiles/ev3dev-lang-test.dir/clean
 demos/CMakeFiles/sound-test.dir/all: CMakeFiles/ev3dev.dir/all
 	$(MAKE) -f demos/CMakeFiles/sound-test.dir/build.make demos/CMakeFiles/sound-test.dir/depend
 	$(MAKE) -f demos/CMakeFiles/sound-test.dir/build.make demos/CMakeFiles/sound-test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=26,27 "Built target sound-test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=28,29 "Built target sound-test"
 .PHONY : demos/CMakeFiles/sound-test.dir/all
 
 # Include target in all.
@@ -307,7 +346,7 @@ clean: demos/CMakeFiles/sound-test.dir/clean
 demos/CMakeFiles/ev3dev-lang-demo.dir/all: CMakeFiles/ev3dev.dir/all
 	$(MAKE) -f demos/CMakeFiles/ev3dev-lang-demo.dir/build.make demos/CMakeFiles/ev3dev-lang-demo.dir/depend
 	$(MAKE) -f demos/CMakeFiles/ev3dev-lang-demo.dir/build.make demos/CMakeFiles/ev3dev-lang-demo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=12,13 "Built target ev3dev-lang-demo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=14,15 "Built target ev3dev-lang-demo"
 .PHONY : demos/CMakeFiles/ev3dev-lang-demo.dir/all
 
 # Include target in all.
@@ -344,7 +383,7 @@ clean: demos/CMakeFiles/ev3dev-lang-demo.dir/clean
 demos/CMakeFiles/drive-test.dir/all: CMakeFiles/ev3dev.dir/all
 	$(MAKE) -f demos/CMakeFiles/drive-test.dir/build.make demos/CMakeFiles/drive-test.dir/depend
 	$(MAKE) -f demos/CMakeFiles/drive-test.dir/build.make demos/CMakeFiles/drive-test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=8,9 "Built target drive-test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=10,11 "Built target drive-test"
 .PHONY : demos/CMakeFiles/drive-test.dir/all
 
 # Include target in all.
@@ -418,7 +457,7 @@ clean: demos/CMakeFiles/button-test.dir/clean
 demos/CMakeFiles/robutts.dir/all: CMakeFiles/ev3dev.dir/all
 	$(MAKE) -f demos/CMakeFiles/robutts.dir/build.make demos/CMakeFiles/robutts.dir/depend
 	$(MAKE) -f demos/CMakeFiles/robutts.dir/build.make demos/CMakeFiles/robutts.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=22,23 "Built target robutts"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=24,25 "Built target robutts"
 .PHONY : demos/CMakeFiles/robutts.dir/all
 
 # Include target in all.
@@ -455,7 +494,7 @@ clean: demos/CMakeFiles/robutts.dir/clean
 demos/CMakeFiles/remote_control-test.dir/all: CMakeFiles/ev3dev.dir/all
 	$(MAKE) -f demos/CMakeFiles/remote_control-test.dir/build.make demos/CMakeFiles/remote_control-test.dir/depend
 	$(MAKE) -f demos/CMakeFiles/remote_control-test.dir/build.make demos/CMakeFiles/remote_control-test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=20,21 "Built target remote_control-test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=22,23 "Built target remote_control-test"
 .PHONY : demos/CMakeFiles/remote_control-test.dir/all
 
 # Include target in all.
@@ -492,7 +531,7 @@ clean: demos/CMakeFiles/remote_control-test.dir/clean
 demos/CMakeFiles/remote-control.dir/all: CMakeFiles/ev3dev.dir/all
 	$(MAKE) -f demos/CMakeFiles/remote-control.dir/build.make demos/CMakeFiles/remote-control.dir/depend
 	$(MAKE) -f demos/CMakeFiles/remote-control.dir/build.make demos/CMakeFiles/remote-control.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=18,19 "Built target remote-control"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=20,21 "Built target remote-control"
 .PHONY : demos/CMakeFiles/remote-control.dir/all
 
 # Include target in all.
@@ -566,7 +605,7 @@ clean: demos/CMakeFiles/babyDriv.dir/clean
 demos/CMakeFiles/robuttsT.dir/all: CMakeFiles/ev3dev.dir/all
 	$(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/depend
 	$(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=24,25 "Built target robuttsT"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/src/build/CMakeFiles --progress-num=26,27 "Built target robuttsT"
 .PHONY : demos/CMakeFiles/robuttsT.dir/all
 
 # Include target in all.
