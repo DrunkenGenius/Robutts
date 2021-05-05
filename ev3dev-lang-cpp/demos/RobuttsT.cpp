@@ -223,25 +223,71 @@ void control::mainControl()
 	int blueColorArray[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	int distanceArray[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
+	float rgbDistArray[] = {}
+
+	float calibratedUSValue = 0;
+
+	bool redColorFound = false;
+
 	while (1)
 	{
 		updateSensorInput();
+		//Simpel kalibrering af ultralydssensor
+		/*DISTANCE CM
+		US SENSOR        80.2    70.2    59.8    39.9    19.9    14.9    12.4    10.1    4.9    3
+		ACTUAL VALUE        78.3    68.8    59.5    40.1    20.5    15.4    13    10.9    6    3.3*/
+		if (ultraSoundValue < 40)
+		{
+			calibratedUSValue = ultraSoundValue + 0.58571;
+		}
+		else
+		{
+			calibratedUSValue = ultraSoundValue - 1.2;
+		}
 
 		float redAverage = ArrayAverage(redColorArray, redColorValue);
 		float greenAverage = ArrayAverage(greenColorArray, greenColorValue);
 		float blueAverage = ArrayAverage(blueColorArray, blueColorValue);
 		float distanceAverage = ArrayAverage(distanceArray, ultraSoundValue);
 
-		/*if (greenColor == false && ultraSoundValue > threshold && bumperSensor == false && hpCounter > 0)
+		/*
+					Adjusted value        		  79    69    58.6    40.48571    20.48571    15.48571    12.98571    10.68571    5.48571    3.58571
+			Color sensor values 0-1024      R      0     0     0           0            0           0           1   	    2       15         72
+											G      0     0     0           0            0           0           0   	    0       1          8
+											B      0     0     0           0            0           0           0   	    0       2          8
+		*/
+
+		//12.98 is the first value so every range above this has to have a color threshold above this
+		//Vi tjekker for rød vs distance for at være sikre på at den farve vi kigger på er rød og ikke en random value, selvom value er et mean.
+		//Røds tendens gør muligvis den her algoritme kalibrering ting overflødig- kunne give mening hvis der var flere farver end rød og grøn
+		//Det giver mening at vi har kalibreret for vores specifikke røde farve for at vi ikke angriber en anden rød farve.
+		if (calibratedUSValue <= 12.98 && calibratedUSValue >= 10.68 && redAverage >= 1 && greenAverage < 1)
 		{
-		//sweepArea();
-		  state = 1;
+			std::cout << "rødDetected" << std::endl;
+			redColorFound = true;
 		}
-		else if (colorValue == greenColor)
+		else if (calibratedUSValue >= 5.48 && redAverage >= 2 && greenAverage <= 0)
 		{
-		  std::cout << "Attackmode" << std::endl;
-		  state = 3;
-		}*/
+			std::cout << "rødDetected" << std::endl;
+			redColorFound = true;
+		}
+		else if (calibratedUSValue >= 3.585 && redAverage >= 13 && greenAverage <= 1)
+		{
+			std::cout << "rødDetected" << std::endl;
+			redColorFound = true;
+		}
+		else if (calibratedUSValue >= 3.58 && redAverage >= 70 && greenAverage <= 8)
+		{
+			std::cout << "rødDetected" << std::endl;
+			redColorFound = true;
+		}
+		else
+		{
+			std::cout << "rødDetected" << std::endl;
+			redColorFound = false;
+		}
+
+
 		if (ultraSoundValue < threshold)
 		{
 			std::cout << "US triggered" << std::endl;
