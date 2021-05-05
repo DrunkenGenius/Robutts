@@ -28,6 +28,7 @@ public:
   void driveBackwards(int speed, int time = 0);
   void turnRight(int speed, int time = 0);
   void turnLeft(int speed, int time = 0);
+  float ArrayAverage(int colorValues[], int colorValue);
   void mainControl();
   void updateSensorInput();
 
@@ -191,6 +192,23 @@ void control::updateSensorInput()
   greenColorValue = _sensor_col_color.value(1);
   blueColorValue = _sensor_col_color.value(2);
   bumperSensor = _sensor_touch.value();
+  ultraSoundValue = _sensor_us_dist_cm.value();
+}
+
+float control::ArrayAverage(int colorValues[], int colorValue) {
+	int sum = 0;
+	for (int i = 9; i >= 0; i--) {
+		if (i != 0) {
+			colorValues[i] = colorValues[i - 1];
+		}
+		else {
+			colorValues[0] = colorValue;
+		}
+		sum += colorValues[i];
+	}
+
+	float average = sum / 10;
+	return average;
 }
 
 void control::mainControl()
@@ -199,13 +217,26 @@ void control::mainControl()
   _sensor_us_dist_cm.set_mode(ultrasonic_sensor::mode_us_dist_cm);
   _sensor_col_color.set_mode(color_sensor::mode_rgb_raw);
 
+  int redColorArray[] = { 0,0,0,0,0,0,0,0,0,0 };
+  int greenColorArray[] = { 0,0,0,0,0,0,0,0,0,0 };
+  int blueColorArray[] = { 0,0,0,0,0,0,0,0,0,0 };
+  int distanceArray[] = { 0,0,0,0,0,0,0,0,0,0 };
+
   while (1)
   {
     updateSensorInput();
+	
+	float redAverage = ArrayAverage(redColorArray, redColorValue);
+	float greenAverage = ArrayAverage(greenColorArray, greenColorValue);
+	float blueAverage = ArrayAverage(blueColorArray, blueColorValue);
+	float distanceAverage = ArrayAverage(distanceArray, ultraSoundValue);
+
     
     if (bumperSensor == true)
     {
       std::cout << "Red: " << redColorValue << ", Green: " << greenColorValue << ", Blue: " << blueColorValue << std::endl;
+	  std::cout << "redAverage: " << redAverage << ", greenAverage: " << greenAverage << ", blueAverage: " << blueAverage << std::endl;
+	  std::cout << "Distance: " << distanceAverage / 10 << "cm" << std:endl;
     }
   }
 }
