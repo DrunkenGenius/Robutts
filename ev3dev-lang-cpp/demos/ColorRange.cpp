@@ -59,6 +59,10 @@ public:
     int noColor = 0;
     int brownColor = 7;
  
+	//Set value for sensor
+	int redColorValue;
+	int greenColorValue;
+	int blueColorValue;
 
   int speed = 500;
   float ultraSoundValue;

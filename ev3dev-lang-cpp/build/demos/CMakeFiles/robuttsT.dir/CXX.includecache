@@ -35,6 +35,8 @@ iostream
 -
 fstream
 -
+string
+-
 unistd.h
 -
 fcntl.h
