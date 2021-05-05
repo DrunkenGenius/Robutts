@@ -50,14 +50,9 @@ public:
 
 	int state = 1;
 
-	int hpCounter = 3;
+	int hitCounter = 0;
 	int redColor = 5;
 	int greenColor = 3;
-	int yellowColor = 4;
-	int whiteColor = 6;
-	int blackColor = 1;
-	int noColor = 0;
-	int brownColor = 7;
 	//Set value for sensor
 	int colorValue;
 
@@ -88,22 +83,22 @@ protected:
 };
 
 control::control() : _motor_left(OUTPUT_B),
-_motor_right(OUTPUT_C),
-_sensor_touch(INPUT_1),
-_sensor_col_color(INPUT_2),
-_sensor_us_dist_cm(INPUT_3)
+					 _motor_right(OUTPUT_C),
+					 _sensor_touch(INPUT_1),
+					 _sensor_col_color(INPUT_2),
+					 _sensor_us_dist_cm(INPUT_3)
 {
 }
 
 bool control::initialized() const
 {
 	return (_motor_left.connected() &&
-		_motor_right.connected() &&
-		//Color sensor
-		_sensor_col_color.connected() &&
-		//Ultralydssensor
-		_sensor_us_dist_cm.connected() &&
-		_sensor_touch.connected());
+			_motor_right.connected() &&
+			//Color sensor
+			_sensor_col_color.connected() &&
+			//Ultralydssensor
+			_sensor_us_dist_cm.connected() &&
+			_sensor_touch.connected());
 }
 //--------------------------------------------------SENSOR INSTANTIATION END ---------------------------------------//
 //---------------------------------------------------BASIC MOVEMENT START--------------------------------------------//
@@ -196,13 +191,17 @@ void control::updateSensorInput()
 	bumperSensor = _sensor_touch.value();
 }
 
-float control::ArrayAverage(int colorValues[], int colorValue) {
+float control::ArrayAverage(int colorValues[], int colorValue)
+{
 	int sum = 0;
-	for (int i = 9; i >= 0; i--) {
-		if (i != 0) {
+	for (int i = 9; i >= 0; i--)
+	{
+		if (i != 0)
+		{
 			colorValues[i] = colorValues[i - 1];
 		}
-		else {
+		else
+		{
 			colorValues[0] = colorValue;
 		}
 		sum += colorValues[i];
@@ -219,10 +218,10 @@ void control::mainControl()
 	//_sensor_col_color.set_mode(color_sensor::mode_col_color);
 	_sensor_col_color.set_mode(color_sensor::mode_rgb_raw);
 
-	int redColorArray[] = { 0,0,0,0,0,0,0,0,0,0 };
-	int greenColorArray[] = { 0,0,0,0,0,0,0,0,0,0 };
-	int blueColorArray[] = { 0,0,0,0,0,0,0,0,0,0 };
-	int distanceArray[] = { 0,0,0,0,0,0,0,0,0,0 };
+	int redColorArray[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	int greenColorArray[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	int blueColorArray[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	int distanceArray[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 	while (1)
 	{
@@ -251,14 +250,20 @@ void control::mainControl()
 		else if (bumperSensor == true)
 		{
 			std::cout << "BumperSensor triggered" << std::endl;
+			hitCounter++;
 			state = 2;
+			if (hitCounter >= 3)
+			{
+				state = 4;
+			}
 		}
 
-
 		// De mulige states bliver sat i enumeratoren i toppen enum state { sweep, charge, avoid, changepos, dead };
-		switch (state) {
+		switch (state)
+		{
 		case 1:
-			if (!sweeping) {
+			if (!sweeping)
+			{
 				std::cout << "StartSweeping" << std::endl;
 				std::cout << colorValue << std::endl;
 				startSweepTime = time(NULL);
@@ -266,19 +271,30 @@ void control::mainControl()
 				turnLeft(100, -1);
 				sweeping = true;
 			}
-			else if (sweeping) {
+			else if (sweeping)
+			{
 				std::cout << "Sweeping" << std::endl;
 				if (colorValue == greenColor)
 				{
+					//If enemy -> charge
 					state = 3;
 					sweeping = false;
 				}
-				else if (endSweepTime < time(NULL)) {
+				else if (colorValue == redColor)
+				{
+					//If friend -> avoid
+					state = 2;
+					sweeping = false;
+				}
+				else if (endSweepTime < time(NULL))
+				{
 					//Hvis vi går over end time bruger vi modulu til at skifte imellem at køre ligeud og dreje til venstre indtil vi detecter en color, eller skal avoide
-					if (((time(NULL) - endSweepTime) % 6) > 2) {
+					if (((time(NULL) - endSweepTime) % 6) > 2)
+					{
 						driveForward(100, -1);
 					}
-					else {
+					else
+					{
 						turnLeft(100, -1);
 					}
 				}
@@ -305,13 +321,23 @@ void control::mainControl()
 			int initialThreshold = threshold;
 			threshold = 0;
 			driveForward(500, -1);
+			//Colorsensor skal være over threshold ellers gå i sweep state
 			if (bumperSensor == true)
 			{
 				threshold = initialThreshold;
+				hitCounter++;
+				if (hitCounter >= 3)
+					state = 4;
 				state = 2;
 			}
 			break;
-
+		case 4:
+			//Play victory sound
+			turnRight(500, -1);
+			sound::speak("Hello, I am Robot!", true);
+			sound::tone({{392, 350, 100}, {392, 350, 100}, {392, 350, 100}, {311.1, 250, 100}, {466.2, 25, 100}, {392, 350, 100}, {311.1, 250, 100}, {466.2, 25, 100}, {392, 700, 100}, {587.32, 350, 100}, {587.32, 350, 100}, {587.32, 350, 100}, {622.26, 250, 100}, {466.2, 25, 100}, {369.99, 350, 100}, {311.1, 250, 100}, {466.2, 25, 100}, {392, 700, 100}, {784, 350, 100}, {392, 250, 100}, {392, 25, 100}, {784, 350, 100}, {739.98, 250, 100}, {698.46, 25, 100}, {659.26, 25, 100}, {622.26, 25, 100}, {659.26, 50, 400}, {415.3, 25, 200}, {554.36, 350, 100}, {523.25, 250, 100}, {493.88, 25, 100}, {466.16, 25, 100}, {440, 25, 100}, {466.16, 50, 400}, {311.13, 25, 200}, {369.99, 350, 100}, {311.13, 250, 100}, {392, 25, 100}, {466.16, 350, 100}, {392, 250, 100}, {466.16, 25, 100}, {587.32, 700, 100}, {784, 350, 100}, {392, 250, 100}, {392, 25, 100}, {784, 350, 100}, {739.98, 250, 100}, {698.46, 25, 100}, {659.26, 25, 100}, {622.26, 25, 100}, {659.26, 50, 400}, {415.3, 25, 200}, {554.36, 350, 100}, {523.25, 250, 100}, {493.88, 25, 100}, {466.16, 25, 100}, {440, 25, 100}, {466.16, 50, 400}, {311.13, 25, 200}, {392, 350, 100}, {311.13, 250, 100}, {466.16, 25, 100}, {392.00, 300, 150}, {311.13, 250, 100}, {466.16, 25, 100}, {392, 700}},
+						true);
+			break;
 		}
 	}
 }
