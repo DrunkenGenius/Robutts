@@ -58,10 +58,7 @@ public:
   int blackColor = 1;
     int noColor = 0;
     int brownColor = 7;
-  //Set value for sensor
-  int redColorValue;
-  int greenColorValue;
-  int blueColorValue;
+ 
 
   int speed = 500;
   float ultraSoundValue;
@@ -236,7 +233,7 @@ void control::mainControl()
     {
       std::cout << "Red: " << redColorValue << ", Green: " << greenColorValue << ", Blue: " << blueColorValue << std::endl;
 	  std::cout << "redAverage: " << redAverage << ", greenAverage: " << greenAverage << ", blueAverage: " << blueAverage << std::endl;
-	  std::cout << "Distance: " << distanceAverage / 10 << "cm" << std:endl;
+	  std::cout << "Distance: " << distanceAverage / 10 << "cm" << std::endl;
     }
   }
 }
