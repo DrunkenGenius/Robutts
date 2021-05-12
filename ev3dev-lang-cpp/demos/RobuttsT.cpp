@@ -229,6 +229,10 @@ void control::mainControl()
 	float calibratedUSValue = 0;
 
 	bool redColorFound = false;
+	bool greenColorFound = false;
+
+	bool allyFound = false;
+	bool enemyFound = false;
 
 	while (1)
 	{
@@ -237,6 +241,7 @@ void control::mainControl()
 		/*DISTANCE CM
 		US SENSOR        80.2    70.2    59.8    39.9    19.9    14.9    12.4    10.1    4.9    3
 		ACTUAL VALUE        78.3    68.8    59.5    40.1    20.5    15.4    13    10.9    6    3.3*/
+		//Måske behøves kalibrering ikke da det er en meget lav fejl margin
 		if (ultraSoundValue < 40)
 		{
 			calibratedUSValue = ultraSoundValue + 0.58571;
@@ -262,24 +267,22 @@ void control::mainControl()
 		//Vi tjekker for rød vs distance for at være sikre på at den farve vi kigger på er rød og ikke en random value, selvom value er et mean.
 		//Røds tendens gør muligvis den her algoritme kalibrering ting overflødig- kunne give mening hvis der var flere farver end rød og grøn
 		//Det giver mening at vi har kalibreret for vores specifikke røde farve for at vi ikke angriber en anden rød farve.
+
+		//Optimalt ville vi have lavet flere målinger på farven og derfra kunne vi lave en funktion som kan bestemme hvornår en farve er rød i relation til distancen.
 		if (calibratedUSValue <= 12.98 && calibratedUSValue >= 10.68 && redAverage >= 1 && greenAverage < 1)
 		{
-			std::cout << "rødDetected1" << std::endl;
 			redColorFound = true;
 		}
 		else if (calibratedUSValue >= 5.48 && redAverage >= 2 && greenAverage <= 1)
 		{
-			std::cout << "rødDetected2" << std::endl;
 			redColorFound = true;
 		}
 		else if (calibratedUSValue >= 3.585 && redAverage >= 8 && greenAverage <= 5)
 		{
-			std::cout << "rødDetected3" << std::endl;
 			redColorFound = true;
 		}
 		else if (calibratedUSValue <= 3.58 && redAverage >= 25 && greenAverage <= 15)
 		{
-			std::cout << "rødDetected4" << std::endl;
 			redColorFound = true;
 		}
 		else
@@ -287,8 +290,37 @@ void control::mainControl()
 			//std::cout << "nothingDetected" << std::endl;
 			redColorFound = false;
 		}
+		
+		//Mangler målinger
+		//Optimalt ville vi have lavet flere målinger på farven og derfra kunne vi lave en funktion som kan bestemme hvornår en farve er rød i relation til distancen.
+		if (calibratedUSValue <= 12.98 && calibratedUSValue >= 10.68 && greenAverage >= 1 && redAverage < 1)
+		{
+			greenColorFound = true;
+		}
+		else if (calibratedUSValue >= 5.48 && greenAverage >= 2 && redAverage <= 1)
+		{
+			greenColorFound = true;
+		}
+		else if (calibratedUSValue >= 3.585 && greenAverage >= 8 && redAverage <= 5)
+		{
+			greenColorFound = true;
+		}
+		else if (calibratedUSValue <= 3.58 && greenAverage >= 25 && redAverage <= 15)
+		{
+			greenColorFound = true;
+		}
+		else
+		{
+			//std::cout << "nothingDetected" << std::endl;
+			greenColorFound = false;
+		}
 
+		enemyFound = greenColorFound;
+		allyFound = redColorFound;
+		
+		//Undgår at avoide når vi er i charge mode eller når vi har vundet
 		if(state != 3 && state != 4){
+			//I alle andre states skal vi kunne gå i avoid mode når vi er under threshold på US eller vi bumper sensor
 			if (ultraSoundValue < threshold)
 			{
 				std::cout << "US triggered" << std::endl;
@@ -305,6 +337,7 @@ void control::mainControl()
 		switch (state)
 		{
 		case 1:
+			//Start timer
 			if (!sweeping)
 			{
 				std::cout << "StartSweeping" << std::endl;
@@ -317,13 +350,13 @@ void control::mainControl()
 			else if (sweeping)
 			{
 				//std::cout << "Sweeping" << std::endl;
-				if (redColorFound)
+				if (enemyFound)
 				{
 					//If enemy -> charge
 					state = 3;
 					sweeping = false;
 				}
-				else if (redColorFound)
+				else if (allyFound)
 				{
 					//If friend -> avoid
 					state = 2;
@@ -365,7 +398,7 @@ void control::mainControl()
 			threshold = 0;
 			driveForward(300, -1);
 			//Colorsensor skal være over threshold ellers gå i sweep state
-			if (!redColorFound) {
+			if (!enemyFound) {
 				state = 1;
 			}else if(bumperSensor == true)
 			{
@@ -375,6 +408,7 @@ void control::mainControl()
 				//sound::speak("Point Gained", true);
 				string str = to_string(hitCounter);
 				sound::speak(str, true);
+				//Win eller avoid
 				if (hitCounter >= 3) {
 					state = 4;
 				}	
