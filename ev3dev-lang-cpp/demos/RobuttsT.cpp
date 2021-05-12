@@ -257,6 +257,7 @@ void control::mainControl()
 		float distanceAverage = ArrayAverage(distanceArray, ultraSoundValue);
 
 		/*
+					Actual value        		 80.2  70.2   59.8       39.9         19.9        14.9       12.4         10.1      4.9        3
 					Adjusted value        		  79    69    58.6    40.48571    20.48571    15.48571    12.98571    10.68571    5.48571    3.58571
 			Color sensor values 0-1024      R      0     0     0           0            0           0           1   	    2       15         72
 											G      0     0     0           0            0           0           0   	    0       1          8
@@ -291,30 +292,53 @@ void control::mainControl()
 			redColorFound = false;
 		}
 		
+
+//		Distance	15,4	10	7,6		5,5		3,6		3
+//			r		0		0	1		4		10		45
+//			g		1		2	4		8		22		112
+//			b		1		2	3		6		13		47
+
 		//Mangler målinger
 		//Optimalt ville vi have lavet flere målinger på farven og derfra kunne vi lave en funktion som kan bestemme hvornår en farve er rød i relation til distancen.
-		if (calibratedUSValue <= 12.98 && calibratedUSValue >= 10.68 && greenAverage >= 1 && redAverage < 1)
+		if (ultraSoundValue <= 15.4 && ultraSoundValue >= 10 && greenAverage >= 1 && redAverage < 1)
 		{
+			std::cout << "green1" << std::endl;
 			greenColorFound = true;
 		}
-		else if (calibratedUSValue >= 5.48 && greenAverage >= 2 && redAverage <= 1)
+		else if (ultraSoundValue >= 7.6 && greenAverage >= 2 && redAverage < 1)
 		{
+			std::cout << "green2" << std::endl;
 			greenColorFound = true;
 		}
-		else if (calibratedUSValue >= 3.585 && greenAverage >= 8 && redAverage <= 5)
+		else if (ultraSoundValue >= 5.5 && greenAverage >= 4 && redAverage <= 1)
 		{
+			std::cout << "green3" << std::endl;
 			greenColorFound = true;
 		}
-		else if (calibratedUSValue <= 3.58 && greenAverage >= 25 && redAverage <= 15)
+		else if (ultraSoundValue >= 3.6 && greenAverage >= 8 && redAverage <= 4)
 		{
+			std::cout << "green4" << std::endl;
+			greenColorFound = true;
+		}
+		else if (ultraSoundValue >= 3 && greenAverage >= 22 && redAverage <= 10)
+		{
+			std::cout << "green5" << std::endl;
+			greenColorFound = true;
+		}
+		else if (ultraSoundValue <= 3 && greenAverage >= 112 && redAverage <= 45)
+		{
+			std::cout << "green6" << std::endl;
 			greenColorFound = true;
 		}
 		else
 		{
+			std::cout << "nothing" << std::endl;
 			//std::cout << "nothingDetected" << std::endl;
 			greenColorFound = false;
 		}
 
+
+		//Ally og enemy bools sættes til grøn eller rød color found hver især, efter hvilket team robotten skal være på.
 		enemyFound = greenColorFound;
 		allyFound = redColorFound;
 		
