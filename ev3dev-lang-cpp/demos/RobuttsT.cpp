@@ -305,27 +305,27 @@ void control::mainControl()
 			std::cout << "green1" << std::endl;
 			greenColorFound = true;
 		}
-		else if (ultraSoundValue >= 7.6 && greenAverage >= 2 && redAverage < 1)
+		else if (ultraSoundValue >= 7.6 && greenAverage >= 2 && redAverage < greenAverage*0.5)
 		{
 			std::cout << "green2" << std::endl;
 			greenColorFound = true;
 		}
-		else if (ultraSoundValue >= 5.5 && greenAverage >= 4 && redAverage <= 1)
+		else if (ultraSoundValue >= 5.5 && greenAverage >= 4 && redAverage <= greenAverage*0.5)
 		{
 			std::cout << "green3" << std::endl;
 			greenColorFound = true;
 		}
-		else if (ultraSoundValue >= 3.6 && greenAverage >= 8 && redAverage <= 4)
+		else if (ultraSoundValue >= 3.6 && greenAverage >= 8 && redAverage <= greenAverage*0.5)
 		{
 			std::cout << "green4" << std::endl;
 			greenColorFound = true;
 		}
-		else if (ultraSoundValue >= 3 && greenAverage >= 22 && redAverage <= 10)
+		else if (ultraSoundValue >= 3 && greenAverage >= 20 && redAverage < greenAverage*0.5)
 		{
 			std::cout << "green5" << std::endl;
 			greenColorFound = true;
 		}
-		else if (ultraSoundValue <= 3 && greenAverage >= 112 && redAverage <= 45)
+		else if (ultraSoundValue <= 3 && greenAverage >= 60 && redAverage <= greenAverage*0.5)
 		{
 			std::cout << "green6" << std::endl;
 			greenColorFound = true;
