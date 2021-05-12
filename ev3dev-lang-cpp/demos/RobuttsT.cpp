@@ -431,7 +431,7 @@ void control::mainControl()
 				//std::cout << "Point Gained" << std::endl;
 				//sound::speak("Point Gained", true);
 				string str = to_string(hitCounter);
-				sound::speak(str, true);
+				//sound::speak(str, true);
 				//Win eller avoid
 				if (hitCounter >= 3) {
 					state = 4;
