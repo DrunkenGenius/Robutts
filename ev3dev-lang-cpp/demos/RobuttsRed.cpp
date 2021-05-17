@@ -466,7 +466,7 @@ void control::mainControl()
 			break;
 		case 5:
 			//Play victory sound
-			turnRight(500, -1);
+			turnRight(0, -1);
 			break;
 		}
 		
