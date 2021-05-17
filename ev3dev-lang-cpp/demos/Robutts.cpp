@@ -193,6 +193,7 @@ void control::turnLeft(int speed, int time)
 
 //--------------------------------------------------BEHAVIOUR START------- ---------------------------------------//
 
+// This function is run as the first thing in each iteration of the main loop to keep all of the sensors up to date.
 void control::updateSensorInput()
 {
 	//Set value for sensor
