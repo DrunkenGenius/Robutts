@@ -24,7 +24,7 @@ functional
 memory
 -
 
-/src/demos/Robutts.cpp
+/src/demos/RobuttsRed.cpp
 ev3dev.h
 /src/demos/ev3dev.h
 thread

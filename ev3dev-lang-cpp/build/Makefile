@@ -192,30 +192,17 @@ api_tests/fast:
 .PHONY : api_tests/fast
 
 #=============================================================================
-# Target rules for targets named colorRange
+# Target rules for targets named robuttsRed
 
 # Build rule for target.
-colorRange: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 colorRange
-.PHONY : colorRange
+robuttsRed: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 robuttsRed
+.PHONY : robuttsRed
 
 # fast build rule for target.
-colorRange/fast:
-	$(MAKE) -f demos/CMakeFiles/colorRange.dir/build.make demos/CMakeFiles/colorRange.dir/build
-.PHONY : colorRange/fast
-
-#=============================================================================
-# Target rules for targets named nycolor
-
-# Build rule for target.
-nycolor: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 nycolor
-.PHONY : nycolor
-
-# fast build rule for target.
-nycolor/fast:
-	$(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/build
-.PHONY : nycolor/fast
+robuttsRed/fast:
+	$(MAKE) -f demos/CMakeFiles/robuttsRed.dir/build.make demos/CMakeFiles/robuttsRed.dir/build
+.PHONY : robuttsRed/fast
 
 #=============================================================================
 # Target rules for targets named ev3dev-lang-test
@@ -242,6 +229,19 @@ sound-test: cmake_check_build_system
 sound-test/fast:
 	$(MAKE) -f demos/CMakeFiles/sound-test.dir/build.make demos/CMakeFiles/sound-test.dir/build
 .PHONY : sound-test/fast
+
+#=============================================================================
+# Target rules for targets named robuttsGreen
+
+# Build rule for target.
+robuttsGreen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 robuttsGreen
+.PHONY : robuttsGreen
+
+# fast build rule for target.
+robuttsGreen/fast:
+	$(MAKE) -f demos/CMakeFiles/robuttsGreen.dir/build.make demos/CMakeFiles/robuttsGreen.dir/build
+.PHONY : robuttsGreen/fast
 
 #=============================================================================
 # Target rules for targets named ev3dev-lang-demo
@@ -335,17 +335,30 @@ babyDriv/fast:
 .PHONY : babyDriv/fast
 
 #=============================================================================
-# Target rules for targets named robuttsT
+# Target rules for targets named colorRange
 
 # Build rule for target.
-robuttsT: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 robuttsT
-.PHONY : robuttsT
+colorRange: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 colorRange
+.PHONY : colorRange
 
 # fast build rule for target.
-robuttsT/fast:
-	$(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/build
-.PHONY : robuttsT/fast
+colorRange/fast:
+	$(MAKE) -f demos/CMakeFiles/colorRange.dir/build.make demos/CMakeFiles/colorRange.dir/build
+.PHONY : colorRange/fast
+
+#=============================================================================
+# Target rules for targets named nycolor
+
+# Build rule for target.
+nycolor: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nycolor
+.PHONY : nycolor
+
+# fast build rule for target.
+nycolor/fast:
+	$(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/build
+.PHONY : nycolor/fast
 
 ev3dev.o: ev3dev.cpp.o
 
@@ -389,10 +402,10 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... api_tests"
-	@echo "... colorRange"
-	@echo "... nycolor"
+	@echo "... robuttsRed"
 	@echo "... ev3dev-lang-test"
 	@echo "... sound-test"
+	@echo "... robuttsGreen"
 	@echo "... ev3dev-lang-demo"
 	@echo "... drive-test"
 	@echo "... button-test"
@@ -400,7 +413,8 @@ help:
 	@echo "... remote_control-test"
 	@echo "... remote-control"
 	@echo "... babyDriv"
-	@echo "... robuttsT"
+	@echo "... colorRange"
+	@echo "... nycolor"
 	@echo "... ev3dev.o"
 	@echo "... ev3dev.i"
 	@echo "... ev3dev.s"

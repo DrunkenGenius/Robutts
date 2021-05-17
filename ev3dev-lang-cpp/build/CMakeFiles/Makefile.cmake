@@ -49,10 +49,10 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/ev3dev.dir/DependInfo.cmake"
   "tests/CMakeFiles/api_tests.dir/DependInfo.cmake"
-  "demos/CMakeFiles/colorRange.dir/DependInfo.cmake"
-  "demos/CMakeFiles/nycolor.dir/DependInfo.cmake"
+  "demos/CMakeFiles/robuttsRed.dir/DependInfo.cmake"
   "demos/CMakeFiles/ev3dev-lang-test.dir/DependInfo.cmake"
   "demos/CMakeFiles/sound-test.dir/DependInfo.cmake"
+  "demos/CMakeFiles/robuttsGreen.dir/DependInfo.cmake"
   "demos/CMakeFiles/ev3dev-lang-demo.dir/DependInfo.cmake"
   "demos/CMakeFiles/drive-test.dir/DependInfo.cmake"
   "demos/CMakeFiles/button-test.dir/DependInfo.cmake"
@@ -60,5 +60,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "demos/CMakeFiles/remote_control-test.dir/DependInfo.cmake"
   "demos/CMakeFiles/remote-control.dir/DependInfo.cmake"
   "demos/CMakeFiles/babyDriv.dir/DependInfo.cmake"
-  "demos/CMakeFiles/robuttsT.dir/DependInfo.cmake"
+  "demos/CMakeFiles/colorRange.dir/DependInfo.cmake"
+  "demos/CMakeFiles/nycolor.dir/DependInfo.cmake"
   )

@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /src/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: install/local
-
-.PHONY : install/local/fast
-
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
@@ -121,6 +110,17 @@ test/fast: test
 
 .PHONY : test/fast
 
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: install/local
+
+.PHONY : install/local/fast
+
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -166,34 +166,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-demos/CMakeFiles/colorRange.dir/rule:
-	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/colorRange.dir/rule
-.PHONY : demos/CMakeFiles/colorRange.dir/rule
+demos/CMakeFiles/robuttsRed.dir/rule:
+	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/robuttsRed.dir/rule
+.PHONY : demos/CMakeFiles/robuttsRed.dir/rule
 
 # Convenience name for target.
-colorRange: demos/CMakeFiles/colorRange.dir/rule
+robuttsRed: demos/CMakeFiles/robuttsRed.dir/rule
 
-.PHONY : colorRange
+.PHONY : robuttsRed
 
 # fast build rule for target.
-colorRange/fast:
-	cd /src/build && $(MAKE) -f demos/CMakeFiles/colorRange.dir/build.make demos/CMakeFiles/colorRange.dir/build
-.PHONY : colorRange/fast
-
-# Convenience name for target.
-demos/CMakeFiles/nycolor.dir/rule:
-	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/nycolor.dir/rule
-.PHONY : demos/CMakeFiles/nycolor.dir/rule
-
-# Convenience name for target.
-nycolor: demos/CMakeFiles/nycolor.dir/rule
-
-.PHONY : nycolor
-
-# fast build rule for target.
-nycolor/fast:
-	cd /src/build && $(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/build
-.PHONY : nycolor/fast
+robuttsRed/fast:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsRed.dir/build.make demos/CMakeFiles/robuttsRed.dir/build
+.PHONY : robuttsRed/fast
 
 # Convenience name for target.
 demos/CMakeFiles/ev3dev-lang-test.dir/rule:
@@ -224,6 +209,21 @@ sound-test: demos/CMakeFiles/sound-test.dir/rule
 sound-test/fast:
 	cd /src/build && $(MAKE) -f demos/CMakeFiles/sound-test.dir/build.make demos/CMakeFiles/sound-test.dir/build
 .PHONY : sound-test/fast
+
+# Convenience name for target.
+demos/CMakeFiles/robuttsGreen.dir/rule:
+	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/robuttsGreen.dir/rule
+.PHONY : demos/CMakeFiles/robuttsGreen.dir/rule
+
+# Convenience name for target.
+robuttsGreen: demos/CMakeFiles/robuttsGreen.dir/rule
+
+.PHONY : robuttsGreen
+
+# fast build rule for target.
+robuttsGreen/fast:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsGreen.dir/build.make demos/CMakeFiles/robuttsGreen.dir/build
+.PHONY : robuttsGreen/fast
 
 # Convenience name for target.
 demos/CMakeFiles/ev3dev-lang-demo.dir/rule:
@@ -331,19 +331,34 @@ babyDriv/fast:
 .PHONY : babyDriv/fast
 
 # Convenience name for target.
-demos/CMakeFiles/robuttsT.dir/rule:
-	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/robuttsT.dir/rule
-.PHONY : demos/CMakeFiles/robuttsT.dir/rule
+demos/CMakeFiles/colorRange.dir/rule:
+	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/colorRange.dir/rule
+.PHONY : demos/CMakeFiles/colorRange.dir/rule
 
 # Convenience name for target.
-robuttsT: demos/CMakeFiles/robuttsT.dir/rule
+colorRange: demos/CMakeFiles/colorRange.dir/rule
 
-.PHONY : robuttsT
+.PHONY : colorRange
 
 # fast build rule for target.
-robuttsT/fast:
-	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/build
-.PHONY : robuttsT/fast
+colorRange/fast:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/colorRange.dir/build.make demos/CMakeFiles/colorRange.dir/build
+.PHONY : colorRange/fast
+
+# Convenience name for target.
+demos/CMakeFiles/nycolor.dir/rule:
+	cd /src/build && $(MAKE) -f CMakeFiles/Makefile2 demos/CMakeFiles/nycolor.dir/rule
+.PHONY : demos/CMakeFiles/nycolor.dir/rule
+
+# Convenience name for target.
+nycolor: demos/CMakeFiles/nycolor.dir/rule
+
+.PHONY : nycolor
+
+# fast build rule for target.
+nycolor/fast:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/nycolor.dir/build.make demos/CMakeFiles/nycolor.dir/build
+.PHONY : nycolor/fast
 
 ColorRange.o: ColorRange.cpp.o
 
@@ -399,32 +414,59 @@ Robutts.cpp.s:
 	cd /src/build && $(MAKE) -f demos/CMakeFiles/robutts.dir/build.make demos/CMakeFiles/robutts.dir/Robutts.cpp.s
 .PHONY : Robutts.cpp.s
 
-RobuttsT.o: RobuttsT.cpp.o
+RobuttsGreen.o: RobuttsGreen.cpp.o
 
-.PHONY : RobuttsT.o
+.PHONY : RobuttsGreen.o
 
 # target to build an object file
-RobuttsT.cpp.o:
-	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/RobuttsT.cpp.o
-.PHONY : RobuttsT.cpp.o
+RobuttsGreen.cpp.o:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsGreen.dir/build.make demos/CMakeFiles/robuttsGreen.dir/RobuttsGreen.cpp.o
+.PHONY : RobuttsGreen.cpp.o
 
-RobuttsT.i: RobuttsT.cpp.i
+RobuttsGreen.i: RobuttsGreen.cpp.i
 
-.PHONY : RobuttsT.i
+.PHONY : RobuttsGreen.i
 
 # target to preprocess a source file
-RobuttsT.cpp.i:
-	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/RobuttsT.cpp.i
-.PHONY : RobuttsT.cpp.i
+RobuttsGreen.cpp.i:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsGreen.dir/build.make demos/CMakeFiles/robuttsGreen.dir/RobuttsGreen.cpp.i
+.PHONY : RobuttsGreen.cpp.i
 
-RobuttsT.s: RobuttsT.cpp.s
+RobuttsGreen.s: RobuttsGreen.cpp.s
 
-.PHONY : RobuttsT.s
+.PHONY : RobuttsGreen.s
 
 # target to generate assembly for a file
-RobuttsT.cpp.s:
-	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsT.dir/build.make demos/CMakeFiles/robuttsT.dir/RobuttsT.cpp.s
-.PHONY : RobuttsT.cpp.s
+RobuttsGreen.cpp.s:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsGreen.dir/build.make demos/CMakeFiles/robuttsGreen.dir/RobuttsGreen.cpp.s
+.PHONY : RobuttsGreen.cpp.s
+
+RobuttsRed.o: RobuttsRed.cpp.o
+
+.PHONY : RobuttsRed.o
+
+# target to build an object file
+RobuttsRed.cpp.o:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsRed.dir/build.make demos/CMakeFiles/robuttsRed.dir/RobuttsRed.cpp.o
+.PHONY : RobuttsRed.cpp.o
+
+RobuttsRed.i: RobuttsRed.cpp.i
+
+.PHONY : RobuttsRed.i
+
+# target to preprocess a source file
+RobuttsRed.cpp.i:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsRed.dir/build.make demos/CMakeFiles/robuttsRed.dir/RobuttsRed.cpp.i
+.PHONY : RobuttsRed.cpp.i
+
+RobuttsRed.s: RobuttsRed.cpp.s
+
+.PHONY : RobuttsRed.s
+
+# target to generate assembly for a file
+RobuttsRed.cpp.s:
+	cd /src/build && $(MAKE) -f demos/CMakeFiles/robuttsRed.dir/build.make demos/CMakeFiles/robuttsRed.dir/RobuttsRed.cpp.s
+.PHONY : RobuttsRed.cpp.s
 
 button-test.o: button-test.cpp.o
 
@@ -675,16 +717,16 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... test"
-	@echo "... colorRange"
-	@echo "... nycolor"
+	@echo "... install/local"
+	@echo "... robuttsRed"
 	@echo "... ev3dev-lang-test"
 	@echo "... sound-test"
+	@echo "... robuttsGreen"
 	@echo "... ev3dev-lang-demo"
 	@echo "... drive-test"
 	@echo "... button-test"
@@ -693,16 +735,20 @@ help:
 	@echo "... remote_control-test"
 	@echo "... remote-control"
 	@echo "... babyDriv"
-	@echo "... robuttsT"
+	@echo "... colorRange"
+	@echo "... nycolor"
 	@echo "... ColorRange.o"
 	@echo "... ColorRange.i"
 	@echo "... ColorRange.s"
 	@echo "... Robutts.o"
 	@echo "... Robutts.i"
 	@echo "... Robutts.s"
-	@echo "... RobuttsT.o"
-	@echo "... RobuttsT.i"
-	@echo "... RobuttsT.s"
+	@echo "... RobuttsGreen.o"
+	@echo "... RobuttsGreen.i"
+	@echo "... RobuttsGreen.s"
+	@echo "... RobuttsRed.o"
+	@echo "... RobuttsRed.i"
+	@echo "... RobuttsRed.s"
 	@echo "... button-test.o"
 	@echo "... button-test.i"
 	@echo "... button-test.s"
