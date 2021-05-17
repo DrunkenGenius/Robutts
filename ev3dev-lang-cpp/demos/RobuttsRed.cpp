@@ -400,7 +400,7 @@ void control::mainControl()
 				else if (endSweepTime < time(NULL))
 				{
 					//Hvis vi går over end time bruger vi modulu til at skifte imellem at køre ligeud og dreje til venstre indtil vi detecter en color, eller skal avoide
-					if (((time(NULL) - endSweepTime) % 6) > 2)
+					if (((time(NULL) - endSweepTime) % 6) > 0)
 					{
 						driveForward(100, -1);
 					}
@@ -416,7 +416,7 @@ void control::mainControl()
 			std::cout << "Avoid" << std::endl;
 			sweeping = false;
 			//avoidObstacle(); //backsoff and goes back to sweepArea
-			driveBackwards(100, -1);
+			driveBackwards(100, 2000);
 			if (ultraSoundValue > threshold)
 			{
 				turnLeft(300, 400);
