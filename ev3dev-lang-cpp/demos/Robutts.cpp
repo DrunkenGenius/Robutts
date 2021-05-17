@@ -224,6 +224,7 @@ float control::ArrayAverage(int colorValues[], int colorValue)
 	return average;
 }
 
+//mainControl is the function that runs from the start.
 void control::mainControl()
 {
 	//Set mode
@@ -245,9 +246,12 @@ void control::mainControl()
 	bool allyFound = false;
 	bool enemyFound = false;
 
+	//While loop is set to 1 to make it run continuesly.
 	while (1)
 	{
+		//UpdateSensorInput is running as the first think in each iteration to keep all the sensors up to date all the time.
 		updateSensorInput();
+
 		//Simpel kalibrering af ultralydssensor
 		/*DISTANCE CM
 		US SENSOR        80.2    70.2    59.8    39.9    19.9    14.9    12.4    10.1    4.9    3
@@ -469,9 +473,10 @@ void control::mainControl()
 	}
 }
 
-//--------------------------------------------------BEHAVIOUR END---------------------------------------//
-//--------------------------------------------------MAIN START ---------------------------------------//
+//-------------------------------------------------- BEHAVIOUR END ---------------------------------------//
+//-------------------------------------------------- MAIN START ---------------------------------------//
 
+//This is the main function that is run once the program gets turned on.
 int main()
 {
 	control c;
