@@ -400,7 +400,7 @@ void control::mainControl()
 				else if (endSweepTime < time(NULL))
 				{
 					//Hvis vi går over end time bruger vi modulu til at skifte imellem at køre ligeud og dreje til venstre indtil vi detecter en color, eller skal avoide
-					if (((time(NULL) - endSweepTime) % 6) > 0)
+					if (((time(NULL) - endSweepTime) % 8) > 2)
 					{
 						driveForward(100, -1);
 					}
